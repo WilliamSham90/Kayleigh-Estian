@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kayleigh & Estian — Forever Begins</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Black+Ops+One&family=Nunito:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS RESET & ROOT VKAYLEIGHBLES
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --black:       #0a0808;
+      --deep:        #110e0e;
+      --charcoal:    #1c1818;
+      --gold:        #c9a84c;
+      --gold-light:  #e8c96a;
+      --cream:       #f5ede0;
+      --blush:       #e8b4a2;
+      --electric:    #ff2d6b;
+      --neon:        #ff6bbb;
+      --cyan:        #00e5ff;
+      --lime:        #b2ff59;
+      --at-yellow:   #ffcf00;
+      --at-sky:      #87ceeb;
+      --at-pink:     #ff85c2;
+      --at-green:    #6abf69;
+
+      --font-serif:  'Cormorant Garamond', Georgia, serif;
+      --font-rock:   'Black Ops One', sans-serif;
+      --font-display:'Bebas Neue', sans-serif;
+      --font-cute:   'Nunito', sans-serif;
+
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: var(--font-serif);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s var(--ease-out), width 0.3s, height 0.3s, border-color 0.3s;
+      opacity: 0.6;
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-50px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+    .reveal-left.visible  { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(50px);  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav#navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(10,8,8,0.9) 0%, transparent 100%);
+      backdrop-filter: blur(4px);
+      transition: background 0.3s;
+    }
+    nav#navbar.scrolled { background: rgba(10,8,8,0.95); }
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    /* Desktop nav: visible by default */
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.3s, color 0.3s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    /* Hamburger: hidden on desktop */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 110;
+      position: relative;
+    }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--cream); transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1); transform-origin: center; }
+    /* X state when open */
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 120px 20px 60px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 80%, rgba(201,168,76,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255,45,107,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 80% at 50% 50%, rgba(17,14,14,1) 0%, rgba(10,8,8,1) 100%);
+    }
+
+    /* Floating particles */
+    .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: float-up linear infinite;
+      opacity: 0;
+    }
+    @keyframes float-up {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeInDown 1s var(--ease-out) 0.3s forwards;
+    }
+
+    .hero-names {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 16px 24px;
+      margin-bottom: 24px;
+    }
+    .hero-name {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(4rem, 12vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      opacity: 0;
+      animation: fadeInUp 1.2s var(--ease-out) forwards;
+    }
+    .hero-name:first-child { animation-delay: 0.5s; font-style: italic; }
+    .hero-name:last-child  { animation-delay: 0.8s; }
+
+    .hero-ampersand {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(2rem, 5vw, 4rem);
+      color: var(--gold);
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-out) 0.7s forwards;
+      margin-top: 20px;
+    }
+
+    .hero-date {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 2vw, 1.15rem);
+      color: var(--blush);
+      letter-spacing: 0.2em;
+      margin-top: 8px;
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-out) 1.1s forwards;
+    }
+
+    .hero-divider {
+      width: 120px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 32px auto;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.3s forwards;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: rgba(245,237,224,0.6);
+      max-width: 400px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-out) 1.4s forwards;
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0; animation: fadeIn 1s ease 2s forwards;
+    }
+    .scroll-hint span {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(245,237,224,0.4);
+    }
+    .scroll-arrow {
+      width: 20px; height: 20px;
+      border-right: 1px solid var(--gold);
+      border-bottom: 1px solid var(--gold);
+      transform: rotate(45deg);
+      animation: bounce 1.5s ease infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
+
+    /* Countdown timer */
+    .countdown {
+      display: flex; gap: clamp(16px, 4vw, 40px);
+      margin-top: 40px;
+      opacity: 0; animation: fadeInUp 1s var(--ease-out) 1.6s forwards;
+    }
+    .count-item { text-align: center; }
+    .count-num {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+    .count-label {
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(245,237,224,0.4);
+      margin-top: 4px;
+    }
+    .count-sep {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--gold);
+      opacity: 0.3;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       SECTION SHARED
+    ============================================================ */
+    section { position: relative; overflow: hidden; }
+    .section-label {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* ============================================================
+       HER SECTION — PHOTOGRAPHER
+    ============================================================ */
+    #her {
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px);
+      background:
+        radial-gradient(ellipse 60% 70% at 10% 50%, rgba(232,180,162,0.05) 0%, transparent 70%),
+        linear-gradient(160deg, #0e0b0b 0%, #15100f 100%);
+    }
+
+    .her-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px); align-items: center;
+    }
+
+    .her-text {}
+    .her-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+    .her-title span { color: var(--blush); }
+    .her-story {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.8;
+      color: rgba(245,237,224,0.65);
+      margin-bottom: 24px;
+    }
+    .her-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px;
+      border: 1px solid rgba(232,180,162,0.3);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blush);
+    }
+    .her-badge::before { content: '◉'; font-size: 0.6rem; }
+
+    /* Photo grid */
+    .her-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px;
+    }
+    .photo-card {
+      position: relative; overflow: hidden;
+      border-radius: 4px;
+      background: var(--charcoal);
+      cursor: none;
+    }
+    .photo-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .photo-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s var(--ease-out), filter 0.4s;
+      filter: saturate(0.8) contrast(1.05);
+    }
+    .photo-card:hover img { transform: scale(1.06); filter: saturate(1) contrast(1.05); }
+    .photo-card:nth-child(1) { grid-row: span 2; height: 380px; }
+    .photo-card:nth-child(2) { height: 180px; }
+    .photo-card:nth-child(3) { height: 180px; }
+
+    /* Film grain overlay */
+    .grain {
+      position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Camera icon */
+    .camera-icon {
+      width: 32px; height: 32px;
+      margin-bottom: 16px;
+      color: var(--blush);
+    }
+
+    /* ============================================================
+       HIS SECTION — HEAVY METAL
+    ============================================================ */
+    #his {
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px);
+      background: #070505;
+      position: relative;
+    }
+
+    /* Electric border top */
+    #his::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--electric), var(--neon), var(--electric), transparent);
+      animation: electric-flow 3s linear infinite;
+    }
+    @keyframes electric-flow {
+      0%   { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .his-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px); align-items: center;
+    }
+
+    /* Glitch hero image */
+    .his-image-wrap {
+      position: relative;
+    }
+    .his-main-img {
+      width: 100%; height: 440px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      filter: saturate(0.2) contrast(1.4) brightness(0.85);
+      transition: filter 0.4s;
+    }
+    .his-image-wrap:hover .his-main-img {
+      filter: saturate(0.1) contrast(1.6) brightness(0.9);
+      animation: glitch-img 0.3s steps(2) infinite;
+    }
+    @keyframes glitch-img {
+      0%   { clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); transform: translate(-4px,0); }
+      25%  { clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%); transform: translate(4px,0); }
+      50%  { clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%); transform: translate(-2px,0); }
+      75%  { clip-path: none; transform: translate(0,0); }
+      100% { clip-path: none; transform: translate(0,0); }
+    }
+
+    .his-image-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(7,5,5,0.8) 0%, transparent 50%);
+      border-radius: 4px;
+    }
+    .his-image-tag {
+      position: absolute; bottom: 20px; left: 20px;
+      font-family: var(--font-rock);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--electric);
+      text-transform: uppercase;
+    }
+
+    /* Spark decorations */
+    .sparks { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .spark {
+      position: absolute;
+      width: 2px; height: 20px;
+      background: linear-gradient(to bottom, var(--electric), transparent);
+      animation: spark-fall linear infinite;
+      opacity: 0;
+    }
+    @keyframes spark-fall {
+      0%  { transform: translateY(-20px) rotate(15deg); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 0.5; }
+      100%{ transform: translateY(460px) rotate(15deg); opacity: 0; }
+    }
+
+    .his-text {}
+    .his-title {
+      font-family: var(--font-rock);
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 24px;
+      text-shadow: 0 0 40px rgba(255,45,107,0.3);
+    }
+    .his-title .fire { color: var(--electric); }
+
+    .his-story {
+      font-size: clamp(1rem, 1.5vw, 1.1rem);
+      line-height: 1.8;
+      color: rgba(245,237,224,0.55);
+      margin-bottom: 32px;
+      font-family: var(--font-serif);
+    }
+
+    /* Genre tags */
+    .genre-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .tag {
+      padding: 5px 14px;
+      border: 1px solid rgba(255,45,107,0.4);
+      border-radius: 3px;
+      font-family: var(--font-rock);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--electric);
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+    }
+    .tag:hover { background: var(--electric); color: var(--black); }
+
+    /* Band logo simulation */
+    .band-logo {
+      font-family: var(--font-rock);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--electric);
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 20px rgba(255,45,107,0.6), 0 0 60px rgba(255,45,107,0.2);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%,100% { text-shadow: 0 0 20px rgba(255,45,107,0.6), 0 0 60px rgba(255,45,107,0.2); }
+      50%      { text-shadow: 0 0 30px rgba(255,45,107,0.9), 0 0 80px rgba(255,45,107,0.4), 0 0 120px rgba(255,45,107,0.15); }
+    }
+
+
+    /* ============================================================
+       HIS SECTION — IMAGE GRID (3 cards, unique hover animations)
+    ============================================================ */
+    .his-grid-wrap {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 10px;
+    }
+
+    /* Base card styles */
+    .his-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #111;
+      cursor: none;
+    }
+    .his-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .his-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(7,5,5,0.85) 0%, transparent 55%);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    /* Card 1: spans full left column — GLITCH sweep */
+    .his-card--glitch {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+      height: 420px;
+    }
+    .his-card--glitch img {
+      filter: saturate(0.15) contrast(1.4) brightness(0.85);
+      transition: filter 0.3s;
+    }
+    .his-card--glitch::before,
+    .his-card--glitch::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: inherit;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 2;
+    }
+    .his-card--glitch:hover img {
+      filter: saturate(0.1) contrast(1.7) brightness(0.85);
+      animation: glitch-img 0.25s steps(2) infinite;
+    }
+    .his-card--glitch:hover::before {
+      opacity: 0.12;
+      background: var(--electric);
+      mix-blend-mode: color;
+      animation: glitch-shift-r 0.3s steps(2) infinite;
+    }
+    .his-card--glitch:hover::after {
+      opacity: 0.08;
+      background: var(--cyan);
+      mix-blend-mode: color;
+      animation: glitch-shift-l 0.4s steps(2) infinite;
+    }
+    @keyframes glitch-shift-r {
+      0%  { transform: translate(4px, -2px); clip-path: polygon(0 20%, 100% 20%, 100% 35%, 0 35%); }
+      50% { transform: translate(-3px, 1px); clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%); }
+      100%{ transform: translate(0,0); clip-path: none; }
+    }
+    @keyframes glitch-shift-l {
+      0%  { transform: translate(-4px, 2px); clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%); }
+      50% { transform: translate(3px, -1px); clip-path: polygon(0 10%, 100% 10%, 100% 25%, 0 25%); }
+      100%{ transform: translate(0,0); clip-path: none; }
+    }
+
+    /* Card 2: top right — RED BURN zoom */
+    .his-card--burn {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+      height: 200px;
+    }
+    .his-card--burn img {
+      filter: saturate(0.2) contrast(1.3) brightness(0.8);
+      transform: scale(1);
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.5s ease;
+    }
+    .his-card--burn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255,45,107,0) 0%, rgba(255,45,107,0.55) 100%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+      mix-blend-mode: multiply;
+    }
+    .his-card--burn:hover img {
+      transform: scale(1.12);
+      filter: saturate(0.6) contrast(1.2) brightness(0.75);
+    }
+    .his-card--burn:hover::after { opacity: 1; }
+
+    /* Card 3: bottom right — DIAGONAL WIPE */
+    .his-card--wipe {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      height: 210px;
+    }
+    .his-card--wipe img {
+      filter: saturate(0.15) contrast(1.4) brightness(0.8);
+      transition: filter 0.5s ease, transform 0.5s ease;
+      transform: scale(1.04);
+    }
+    .his-card--wipe::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(135deg,
+        rgba(255,45,107,0.5) 0%,
+        rgba(255,107,187,0.3) 40%,
+        transparent 60%
+      );
+      opacity: 0;
+      transform: translateX(-100%) translateY(-100%);
+      transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .his-card--wipe:hover img {
+      filter: saturate(0.4) contrast(1.2) brightness(0.85);
+      transform: scale(1);
+    }
+    .his-card--wipe:hover::before {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+
+    /* ── Song Card ─────────────────────────────────────────────── */
+    .song-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border: 1px solid rgba(255,45,107,0.25);
+      border-radius: 8px;
+      background: rgba(255,45,107,0.05);
+      margin-bottom: 28px;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s var(--ease-spring);
+      position: relative;
+      overflow: hidden;
+    }
+    .song-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--electric), var(--neon));
+      border-radius: 3px 0 0 3px;
+    }
+    .song-card:hover {
+      border-color: rgba(255,45,107,0.55);
+      background: rgba(255,45,107,0.1);
+      transform: translateY(-3px);
+    }
+
+    /* Vinyl record icon */
+    .song-vinyl {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #1a0808 0deg, #2a1010 60deg, #1a0808 120deg,
+        #2a1010 180deg, #1a0808 240deg, #2a1010 300deg, #1a0808 360deg
+      );
+      border: 2px solid rgba(255,45,107,0.4);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      animation: vinyl-spin 4s linear infinite paused;
+    }
+    .song-card:hover .song-vinyl { animation-play-state: running; }
+    @keyframes vinyl-spin { to { transform: rotate(360deg); } }
+    .vinyl-ring {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,45,107,0.5);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .vinyl-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--electric);
+      box-shadow: 0 0 6px var(--electric);
+    }
+
+    .song-info { flex: 1; min-width: 0; }
+    .song-label {
+      display: block;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--electric);
+      margin-bottom: 3px;
+    }
+    .song-title {
+      font-family: var(--font-rock);
+      font-size: 1rem;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .song-mix {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.8rem;
+      color: rgba(245,237,224,0.45);
+      font-weight: 400;
+    }
+    .song-artist {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(245,237,224,0.5);
+      margin-top: 2px;
+    }
+
+    /* Animated sound bars */
+    .song-bars {
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 24px;
+    }
+    .song-bars span {
+      display: block;
+      width: 3px;
+      border-radius: 2px;
+      background: var(--electric);
+      height: 4px;
+      animation: bar-idle 1.4s ease-in-out infinite;
+    }
+    .song-bars span:nth-child(1) { animation-delay: 0s;    animation-duration: 1.1s; }
+    .song-bars span:nth-child(2) { animation-delay: 0.15s; animation-duration: 0.9s; }
+    .song-bars span:nth-child(3) { animation-delay: 0.3s;  animation-duration: 1.3s; }
+    .song-bars span:nth-child(4) { animation-delay: 0.45s; animation-duration: 1.0s; }
+    .song-bars span:nth-child(5) { animation-delay: 0.6s;  animation-duration: 1.2s; }
+    @keyframes bar-idle {
+      0%,100% { height: 4px;  opacity: 0.4; }
+      50%      { height: 22px; opacity: 1;   }
+    }
+    .song-card:hover .song-bars span { opacity: 1; }
+
+    /* Responsive for his-grid */
+    @media (max-width: 900px) {
+      .his-grid-wrap { grid-template-columns: 1fr 1fr; }
+      .his-card--glitch { height: 300px; }
+      .his-card--burn   { height: 145px; }
+      .his-card--wipe   { height: 145px; }
+    }
+    @media (max-width: 600px) {
+      .his-grid-wrap { grid-template-columns: 1fr; }
+      .his-card--glitch { grid-column: 1; grid-row: auto; height: 240px; }
+      .his-card--burn   { grid-column: 1; grid-row: auto; height: 200px; }
+      .his-card--wipe   { grid-column: 1; grid-row: auto; height: 200px; }
+    }
+
+    /* ============================================================
+       ADVENTURE TIME SECTION
+    ============================================================ */
+    #at {
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
+      background: linear-gradient(160deg, #0d1a2b 0%, #1a2d1a 50%, #2d1a0d 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Cartoon clouds */
+    .at-cloud {
+      position: absolute;
+      background: rgba(135,206,235,0.08);
+      border-radius: 50px;
+      filter: blur(30px);
+      pointer-events: none;
+    }
+
+    .at-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+
+    .at-eyebrow {
+      font-family: var(--font-cute);
+      font-weight: 900;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--at-yellow);
+      margin-bottom: 12px;
+    }
+
+    .at-title {
+      font-family: var(--font-cute);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      color: var(--at-yellow);
+      text-shadow: 4px 4px 0px rgba(0,0,0,0.5), 0 0 40px rgba(255,207,0,0.3);
+      margin-bottom: 16px;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .at-subtitle {
+      font-family: var(--font-cute);
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: rgba(135,206,235,0.8);
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* The AT illustration area */
+    .at-scene {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+
+    .at-canvas {
+      width: 100%;
+      border-radius: 20px;
+      border: 4px solid #333;
+      box-shadow: 8px 8px 0px rgba(0,0,0,0.5), 0 0 60px rgba(255,207,0,0.1);
+      position: relative;
+      overflow: hidden;
+      background: #0d1a2b;
+      aspect-ratio: 16 / 9;
+    }
+    .at-canvas img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .at-canvas:hover img { transform: scale(1.03); }
+    .at-canvas-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 24px 20px;
+      background: linear-gradient(to top, rgba(10,8,8,0.92) 0%, transparent 100%);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: clamp(0.75rem, 1.8vw, 1rem);
+      color: #ffcf00;
+      text-align: center;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    /* SVG inline illustration */
+    .at-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* Floating AT characters  */
+    .at-float {
+      animation: at-bounce 2.5s ease-in-out infinite;
+    }
+    .at-float-2 { animation: at-bounce 2s ease-in-out 0.5s infinite; }
+    .at-float-3 { animation: at-bounce 3s ease-in-out 1s infinite; }
+    @keyframes at-bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    .at-hearts {
+      display: flex; justify-content: center; gap: 16px;
+      margin-bottom: 30px;
+    }
+    .heart-icon {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      animation: heart-beat 1.2s ease-in-out infinite;
+    }
+    .heart-icon:nth-child(2) { animation-delay: 0.2s; }
+    .heart-icon:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes heart-beat {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.2); }
+    }
+
+    .at-story {
+      font-family: var(--font-cute);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      line-height: 1.8;
+      color: rgba(135,206,235,0.85);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .at-story strong { color: var(--at-yellow); }
+
+    /* Stars */
+    .at-star {
+      position: absolute;
+      color: var(--at-yellow);
+      font-size: 1rem;
+      animation: twinkle 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      50%      { opacity: 0.3; transform: scale(0.7) rotate(20deg); }
+    }
+
+    /* ============================================================
+       GALLERY SECTION
+    ============================================================ */
+    #gallery {
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
+      background: linear-gradient(180deg, #0a0808 0%, #110e0e 100%);
+    }
+    .gallery-inner { max-width: 1200px; margin: 0 auto; }
+    .gallery-header { text-align: center; margin-bottom: 60px; }
+    .gallery-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      color: var(--cream);
+    }
+    .gallery-title em { color: var(--gold); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 60px;
+      gap: 10px;
+    }
+
+    .gal-item {
+      position: relative; overflow: hidden;
+      border-radius: 4px;
+      background: var(--charcoal);
+    }
+    .gal-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out), filter 0.4s;
+      filter: saturate(0.7);
+    }
+    .gal-item:hover img { transform: scale(1.08); filter: saturate(1.1); }
+    .gal-item .gal-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,8,8,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex; align-items: flex-end; padding: 16px;
+    }
+    .gal-item:hover .gal-overlay { opacity: 1; }
+    .gal-caption {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--gold);
+    }
+
+    /* Grid positions */
+    .gal-1 { grid-column: 1/5;  grid-row: 1/7;  }
+    .gal-2 { grid-column: 5/9;  grid-row: 1/5;  }
+    .gal-3 { grid-column: 9/13; grid-row: 1/7;  }
+    .gal-4 { grid-column: 5/8;  grid-row: 5/9;  }
+    .gal-5 { grid-column: 8/13; grid-row: 7/11; }
+    .gal-6 { grid-column: 1/5;  grid-row: 7/11; }
+    .gal-7 { grid-column: 5/9;  grid-row: 9/13; }
+    .gal-8 { grid-column: 9/13; grid-row: 11/15;}
+    .gal-9 { grid-column: 1/6;  grid-row: 11/15;}
+    .gal-10{ grid-column: 6/9;  grid-row: 13/17;}
+
+    /* ============================================================
+       WEDDING DETAILS SECTION
+    ============================================================ */
+    #details {
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
+        linear-gradient(160deg, #110e0e 0%, #0a0808 100%);
+    }
+
+    .details-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+
+    .details-eyebrow {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .details-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: var(--cream);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .details-title em { color: var(--gold); }
+
+    .gold-divider {
+      width: 80px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 24px auto;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .detail-card {
+      padding: 40px 24px;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px;
+      background: rgba(201,168,76,0.03);
+      transition: border-color 0.4s, background 0.4s, transform 0.4s var(--ease-spring);
+      position: relative;
+      overflow: hidden;
+    }
+    .detail-card::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.5s var(--ease-out);
+    }
+    .detail-card:hover::before { width: 100%; }
+    .detail-card:hover {
+      border-color: rgba(201,168,76,0.35);
+      background: rgba(201,168,76,0.06);
+      transform: translateY(-6px);
+    }
+
+    .detail-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .detail-label {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .detail-main {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .detail-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: rgba(245,237,224,0.5);
+      line-height: 1.5;
+    }
+
+    /* Dress code */
+    .dress-code {
+      margin-top: 60px;
+      padding: 40px;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      background: rgba(201,168,76,0.03);
+    }
+    .dress-title {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .dress-text {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(245,237,224,0.65);
+    }
+
+    /* ============================================================
+       RSVP SECTION
+    ============================================================ */
+    #rsvp {
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
+      background: #070505;
+      position: relative;
+    }
+
+    #rsvp::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .rsvp-inner { max-width: 680px; margin: 0 auto; }
+    .rsvp-header { text-align: center; margin-bottom: 50px; }
+    .rsvp-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: var(--cream);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    .rsvp-title em { color: var(--gold); }
+    .rsvp-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(245,237,224,0.55);
+      line-height: 1.6;
+    }
+    .rsvp-deadline {
+      margin-top: 12px;
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    /* Form */
+    .rsvp-form { display: flex; flex-direction: column; gap: 24px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      padding: 14px 18px;
+      color: var(--cream);
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder {
+      color: rgba(245,237,224,0.25);
+      font-style: italic;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .form-select option { background: var(--charcoal); color: var(--cream); }
+    .form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+    /* Radio group for RSVP yes/no */
+    .radio-group { display: flex; gap: 12px; }
+    .radio-option {
+      flex: 1;
+      position: relative;
+    }
+    .radio-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .radio-label {
+      display: block;
+      padding: 14px;
+      text-align: center;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: rgba(245,237,224,0.6);
+      transition: all 0.3s;
+    }
+    .radio-option input:checked + .radio-label {
+      background: rgba(201,168,76,0.12);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .radio-label:hover { border-color: rgba(201,168,76,0.5); color: var(--cream); }
+
+    /* Submit btn */
+    .btn-rsvp {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      background-size: 200% 100%;
+      border: none;
+      border-radius: 4px;
+      color: var(--black);
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: background-position 0.4s, transform 0.3s var(--ease-spring), box-shadow 0.3s;
+      margin-top: 8px;
+    }
+    .btn-rsvp:hover {
+      background-position: 100% 0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.3);
+    }
+    .btn-rsvp:active { transform: translateY(0); }
+
+    /* Success message */
+    .form-success {
+      text-align: center;
+      padding: 40px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 8px;
+      display: none;
+    }
+    .form-success.show { display: block; animation: fadeInUp 0.5s var(--ease-out); }
+    .form-success h3 {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .form-success p {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: rgba(245,237,224,0.6);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      padding: 60px 40px 40px;
+      background: var(--black);
+      text-align: center;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .footer-names {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .footer-date {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(245,237,224,0.3);
+      margin-bottom: 32px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+      /* Explicitly un-fix the footer nav so it's never pulled to the top */
+      position: static !important;
+      background: none !important;
+      padding: 0 !important;
+      list-style: none;
+    }
+    .footer-links a {
+      color: rgba(245,237,224,0.3);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: var(--font-serif);
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(245,237,224,0.2);
+      font-family: var(--font-serif);
+    }
+
+    /* ============================================================
+       KEYFRAMES
+    ============================================================ */
+    @keyframes fadeIn    { from{opacity:0} to{opacity:1} }
+    @keyframes fadeInUp  { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInDown{ from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      /* Hide desktop links, show hamburger */
+      .nav-links {
+        display: none !important;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: #0a0808;
+        padding: 0;
+        gap: 0;
+        z-index: 105;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .nav-links.open { display: flex !important; }
+      .nav-links li { width: 100%; text-align: center; }
+      .nav-links a {
+        font-size: 1.6rem !important;
+        display: block;
+        padding: 18px 40px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s;
+        letter-spacing: 0.25em;
+      }
+      .nav-links.open a {
+        opacity: 0.75;
+        transform: translateY(0);
+      }
+      .nav-links.open li:nth-child(1) a { transition-delay: 0.05s; }
+      .nav-links.open li:nth-child(2) a { transition-delay: 0.12s; }
+      .nav-links.open li:nth-child(3) a { transition-delay: 0.19s; }
+      .nav-links.open li:nth-child(4) a { transition-delay: 0.26s; }
+      .nav-links.open li:nth-child(5) a { transition-delay: 0.33s; }
+      .nav-links a:hover { opacity: 1 !important; color: var(--gold); }
+      .hamburger { display: flex; }
+
+      .her-inner, .his-inner {
+        grid-template-columns: 1fr;
+      }
+      .her-photos { order: -1; }
+
+      .details-grid { grid-template-columns: 1fr; max-width: 400px; margin: 40px auto 0; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 200px;
+      }
+      .gal-1,.gal-2,.gal-3,.gal-4,.gal-5,.gal-6,.gal-7,.gal-8,.gal-9,.gal-10 {
+        grid-column: auto; grid-row: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav#navbar { padding: 16px 20px; }
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .her-photos { grid-template-columns: 1fr; }
+      .photo-card:nth-child(1) { height: 250px; }
+      .photo-card:nth-child(2) { height: 200px; }
+      .photo-card:nth-child(3) { height: 200px; }
+      .dress-code { padding: 24px; }
+      .radio-group { flex-direction: column; }
+    }
+
+    /* ============================================================
+       MOBILE CURSOR DISABLE
+    ============================================================ */
+    @media (hover: none) {
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+    }
+
+
+    /* ============================================================
+       MOBILE FULLSCREEN MENU OVERLAY
+       Lives OUTSIDE <nav> so position:fixed works perfectly
+    ============================================================ */
+    #menuOverlay {
+      position: fixed;
+      inset: 0;                        /* top/right/bottom/left: 0 */
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;                  /* dynamic viewport for mobile browsers */
+      background: #0a0808;
+      z-index: 200;                    /* above everything */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      /* Hidden by default */
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-12px);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #menuOverlay.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    #menuCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    #menuList {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 0;
+    }
+    #menuList li {
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+    }
+    #menuList a {
+      display: block;
+      padding: 20px 40px;
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 6vw, 2rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.45s ease, transform 0.45s ease, color 0.3s;
+    }
+    #menuOverlay.open #menuList li:nth-child(1) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.06s; }
+    #menuOverlay.open #menuList li:nth-child(2) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.14s; }
+    #menuOverlay.open #menuList li:nth-child(3) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.22s; }
+    #menuOverlay.open #menuList li:nth-child(4) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.30s; }
+    #menuOverlay.open #menuList li:nth-child(5) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.38s; }
+    #menuList a:hover { opacity: 1 !important; color: var(--gold); }
+
+    /* Gold hairline separator between items */
+    #menuList li + li {
+      border-top: 1px solid rgba(201,168,76,0.12);
+    }
+
+    /* Close X button in overlay top-right */
+    /* Close button inside the overlay */
+    #menuClose {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: none;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0;
+      z-index: 2;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s var(--ease-spring);
+      padding: 0;
+    }
+    #menuClose:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      transform: rotate(90deg) scale(1.1);
+    }
+    #menuClose span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: background 0.3s;
+      position: absolute;
+    }
+    #menuClose span:nth-child(1) { transform: rotate(45deg); }
+    #menuClose span:nth-child(2) { transform: rotate(-45deg); }
+    #menuClose:hover span { background: var(--gold); }
+
+    /* Only show overlay controls on mobile */
+    @media (min-width: 901px) {
+      #menuOverlay { display: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Full-screen mobile menu overlay -->
+  <div id="menuOverlay">
+    <canvas id="menuCanvas"></canvas>
+    <button id="menuClose" aria-label="Close menu">
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="menuList">
+      <li><a href="#her">Kayleigh</a></li>
+      <li><a href="#his">Estian</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+    </ul>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-logo">Kayleigh & Estian</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#her">Kayleigh</a></li>
+      <li><a href="#his">Estian</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <p class="hero-eyebrow">Together in perfect chaos</p>
+
+    <div class="hero-names">
+      <span class="hero-name">Kayleigh</span>
+      <span class="hero-ampersand">&</span>
+      <span class="hero-name">Estian</span>
+    </div>
+
+    <p class="hero-date">05 April 2026 &nbsp;·&nbsp; Pretoria, South Africa</p>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-tagline">
+      Where the shutter meets the stage,<br/>
+      and love makes the loudest sound.
+    </p>
+
+    <div class="countdown" id="countdown">
+      <div class="count-item">
+        <span class="count-num" id="cDays">000</span>
+        <span class="count-label">Days</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-item">
+        <span class="count-num" id="cHours">00</span>
+        <span class="count-label">Hours</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-item">
+        <span class="count-num" id="cMins">00</span>
+        <span class="count-label">Minutes</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-item">
+        <span class="count-num" id="cSecs">00</span>
+        <span class="count-label">Seconds</span>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HER SECTION — KAYLEIGH THE PHOTOGRAPHER
+  ============================================================ -->
+  <section id="her">
+    <div class="grain"></div>
+    <div class="her-inner">
+
+      <div class="her-text">
+        <span class="section-label">Kayleigh</span>
+
+        <svg class="camera-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4L10 8H4C2.9 8 2 8.9 2 10V26C2 27.1 2.9 28 4 28H28C29.1 28 30 27.1 30 26V10C30 8.9 29.1 8 28 8H22L20 4H12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="16" cy="18" r="6" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="16" cy="18" r="3" fill="currentColor" opacity="0.3"/>
+        </svg>
+
+        <h2 class="her-title reveal reveal-left">
+          <span>Kayleigh</span><br/>
+          the one<br/>who sees<br/>beauty<br/>everywhere
+        </h2>
+
+        <p class="her-story reveal delay-1">
+          Kayleigh grew up with a disposable camera glued to her hands, turning ordinary Sunday afternoons into golden-hour adventures. By twenty, she was shooting weddings across the Eastern Cape, chasing light into abandoned farmhouses, and developing film in a bathroom she converted into a darkroom.
+        </p>
+        <p class="her-story reveal delay-2">
+          Her photographs don't just document moments — they breathe. Every frame is a love letter to whatever stood still long enough to be seen. It was at one of those weddings that she first spotted a certain dark-haired guitarist who most definitely did not stand still.
+        </p>
+
+        <div class="her-badge reveal delay-3">Documentary & Fine Art Photography</div>
+      </div>
+
+      <div class="her-photos reveal-right">
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=600&q=80" alt="Kayleigh — behind the lens" loading="lazy" />
+        </div>
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&q=80" alt="Kayleigh's camera" loading="lazy" />
+        </div>
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&q=80" alt="Golden hour photography" loading="lazy" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HIS SECTION — ESTAIN THE METALHEAD
+  ============================================================ -->
+  <section id="his">
+
+    <div class="his-inner">
+
+      <!-- IMAGE GRID — 3 cards, each with a unique hover animation -->
+      <div class="his-grid-wrap reveal-left">
+        <div class="sparks" id="sparks"></div>
+
+        <!-- Card 1: Glitch sweep -->
+        <div class="his-card his-card--glitch">
+          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=700&q=80"
+               alt="Estian on stage" loading="lazy" />
+          <div class="his-card-overlay"></div>
+          <span class="his-image-tag">★ Live in Concert ★</span>
+        </div>
+
+        <!-- Card 2: Red burn zoom -->
+        <div class="his-card his-card--burn">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=700&q=80"
+               alt="No Closure on stage" loading="lazy" />
+          <div class="his-card-overlay"></div>
+          <span class="his-image-tag">★ No Closure ★</span>
+        </div>
+
+        <!-- Card 3: Diagonal wipe reveal -->
+        <div class="his-card his-card--wipe">
+          <img src="https://images.unsplash.com/photo-1598387993441-a364f854cfdd?w=700&q=80"
+               alt="Backstage vibes" loading="lazy" />
+          <div class="his-card-overlay"></div>
+          <span class="his-image-tag">★ Backstage ★</span>
+        </div>
+
+      </div>
+
+      <div class="his-text">
+        <span class="section-label" style="color:var(--electric)">Estian</span>
+
+        <h2 class="his-title reveal">
+          <span class="fire">Estian</span><br/>
+          The Man.<br/>The Myth.<br/>The Riff.
+        </h2>
+
+        <p class="his-story reveal delay-1">
+          Estian picked up his first guitar at eleven, immediately broke a string, and considered it a sign from the music gods that he was meant for something heavier. By seventeen he was fronting <em>No Closure</em> — three sweaty teenagers in a garage, playing riffs loud enough to rattle the neighbour's security gate.
+        </p>
+        <p class="his-story reveal delay-2">
+          Two decades, four albums, and countless broken eardrums later, Estian still plays every show like it's the last one on earth. Off stage, he's surprisingly gentle — a man who cries at nature documentaries, bakes sourdough obsessively, and fell completely apart the moment a certain photographer pointed a camera at him from the back of the crowd.
+        </p>
+
+        <div class="genre-tags reveal delay-3">
+          <span class="tag">Hardcore</span>
+          <span class="tag">Metal Core</span>
+        </div>
+
+        <!-- Song card -->
+        <div class="song-card reveal delay-3">
+          <div class="song-vinyl">
+            <div class="vinyl-ring"></div>
+            <div class="vinyl-dot"></div>
+          </div>
+          <div class="song-info">
+            <span class="song-label">Featured Track</span>
+            <p class="song-title">Cooki3 <span class="song-mix">(Original Mix)</span></p>
+            <p class="song-artist">Estian Smith</p>
+          </div>
+          <div class="song-bars">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="band-logo reveal delay-4">⚡ NO CLOSURE ⚡</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ADVENTURE TIME SECTION
+  ============================================================ -->
+  <section id="at">
+    <!-- Background atmosphere -->
+    <div class="at-cloud" style="width:300px;height:120px;top:10%;left:-50px;"></div>
+    <div class="at-cloud" style="width:200px;height:80px;top:30%;right:-30px;"></div>
+    <div class="at-cloud" style="width:250px;height:100px;bottom:15%;left:20%;"></div>
+
+    <!-- Twinkling stars -->
+    <div class="at-star" style="top:8%;left:12%;animation-delay:0.3s">✦</div>
+    <div class="at-star" style="top:15%;right:18%;animation-delay:0.8s">★</div>
+    <div class="at-star" style="top:35%;left:8%;animation-delay:1.2s">✦</div>
+    <div class="at-star" style="bottom:20%;right:12%;animation-delay:0.5s">✦</div>
+    <div class="at-star" style="bottom:35%;left:55%;animation-delay:1.5s">★</div>
+
+    <div class="at-inner">
+      <p class="at-eyebrow reveal">Mathematical!</p>
+      <h2 class="at-title reveal delay-1">Adventure Time:<br/>The Wedding Episode</h2>
+      <p class="at-subtitle reveal delay-2">What time is it? Wedding time! 🎉</p>
+
+      <div class="at-scene reveal delay-2">
+        <div class="at-canvas">
+          <img
+            src="https://wallpapercave.com/wp/wp843312.jpg"
+            alt="Adventure Time — Finn and Jake in the Land of Ooo"
+            loading="lazy"
+            onerror="this.src='https://wallpapercave.com/wp/80LHENp.jpg'"
+          />
+          <div class="at-canvas-caption">
+            ✦ &nbsp;"Mathematical! They&#39;re getting MARRIED!" — Jake the Dog &nbsp;✦
+          </div>
+        </div>
+      </div><!-- /at-scene -->
+
+      <div class="at-hearts reveal delay-3">
+        <span class="heart-icon">💛</span>
+        <span class="heart-icon">🧡</span>
+        <span class="heart-icon">❤️</span>
+        <span class="heart-icon">🧡</span>
+        <span class="heart-icon">💛</span>
+      </div>
+
+      <p class="at-story reveal delay-4">
+        In another universe — one that might just be the Land of Ooo — <strong>Kayleigh the Adventurer</strong> with her enchanted camera would stumble across <strong>Estian the Metal Knight</strong> playing a solo so face-melting it shook the Candy Kingdom's foundation. Finn and Jake would totally approve. BMO would film the whole thing. The Ice King would cry.
+        <br/><br/>
+        Some loves are just <strong>Mathematical</strong>. This is one of them.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALLERY
+  ============================================================ -->
+  <section id="gallery">
+    <div class="gallery-inner">
+      <div class="gallery-header">
+        <span class="section-label">Our Favourite Moments</span>
+        <h2 class="gallery-title reveal">Us, <em>unfiltered.</em></h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gal-item gal-1 reveal">
+          <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=600&q=80" alt="Together" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">First shoot together</span></div>
+        </div>
+        <div class="gal-item gal-2 reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=600&q=80" alt="Golden hour" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">Golden hour</span></div>
+        </div>
+        <div class="gal-item gal-3 reveal delay-2">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80" alt="Candid" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">Somewhere in the mountains</span></div>
+        </div>
+        <div class="gal-item gal-4 reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80" alt="Laughing" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">Uncontrollable laughter</span></div>
+        </div>
+        <div class="gal-item gal-5 reveal delay-2">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80" alt="Proposal" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">The night everything changed</span></div>
+        </div>
+        <div class="gal-item gal-6 reveal delay-3">
+          <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=600&q=80" alt="Walk" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">Sunday walks</span></div>
+        </div>
+        <div class="gal-item gal-7 reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80" alt="Backyard" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">Backyard sessions</span></div>
+        </div>
+        <div class="gal-item gal-8 reveal delay-3">
+          <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&q=80" alt="Flowers" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">She said yes</span></div>
+        </div>
+        <div class="gal-item gal-9 reveal delay-2">
+          <img src="https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=600&q=80" alt="Night" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">Under the stars</span></div>
+        </div>
+        <div class="gal-item gal-10 reveal delay-4">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456503681?w=600&q=80" alt="Together" loading="lazy"/>
+          <div class="gal-overlay"><span class="gal-caption">Always</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WEDDING DETAILS
+  ============================================================ -->
+  <section id="details">
+    <div class="details-inner">
+      <p class="details-eyebrow reveal">You are warmly invited</p>
+      <h2 class="details-title reveal delay-1">The Wedding of<br/><em>Kayleigh & Estian</em></h2>
+      <div class="gold-divider reveal delay-2"></div>
+      <p class="reveal delay-2" style="font-family:var(--font-serif);font-style:italic;font-size:1.1rem;color:rgba(245,237,224,0.55);line-height:1.7;max-width:560px;margin:0 auto;">
+        Two worlds collide in the most beautiful way. Please join us as we celebrate love in all its forms — tender, loud, artistic, and absolutely Mathematical.
+      </p>
+
+      <div class="details-grid">
+
+        <div class="detail-card reveal delay-1">
+          <span class="detail-icon">📅</span>
+          <span class="detail-label">Date</span>
+          <p class="detail-main">Sunday, 05 April</p>
+          <p class="detail-sub">2026</p>
+        </div>
+
+        <div class="detail-card reveal delay-2">
+          <span class="detail-icon">🕔</span>
+          <span class="detail-label">Time</span>
+          <p class="detail-main">4:00 PM</p>
+          <p class="detail-sub">Ceremony begins promptly.<br/>Cocktails to follow at 5:30 PM</p>
+        </div>
+
+        <div class="detail-card reveal delay-3">
+          <span class="detail-icon">📍</span>
+          <span class="detail-label">Ceremony Venue</span>
+          <p class="detail-main">The Old Stone Chapel</p>
+          <p class="detail-sub">Pretoria, South Africa</p>
+        </div>
+
+        <div class="detail-card reveal delay-2">
+          <span class="detail-icon">🥂</span>
+          <span class="detail-label">Reception</span>
+          <p class="detail-main">Reception Venue, Pretoria</p>
+          <p class="detail-sub">20 minutes from the chapel.<br/>Shuttle service provided.</p>
+        </div>
+
+        <div class="detail-card reveal delay-3">
+          <span class="detail-icon">🏨</span>
+          <span class="detail-label">Accommodation</span>
+          <p class="detail-main">Room Block Reserved</p>
+          <p class="detail-sub">Pretoria Boutique Hotel<br/>Use code: KAYLEIGHESTAIN26</p>
+        </div>
+
+        <div class="detail-card reveal delay-4">
+          <span class="detail-icon">🎶</span>
+          <span class="detail-label">Music</span>
+          <p class="detail-main">Live Band + DJ</p>
+          <p class="detail-sub">Ceremony: String Quartet<br/>Reception: Iron Meridian plays at 9PM 🤘</p>
+        </div>
+
+      </div>
+
+      <div class="dress-code reveal delay-2">
+        <h3 class="dress-title">Dress Code: Elegant Chaos</h3>
+        <p class="dress-text">
+          We love you however you show up — but if you want direction: think <strong>dark florals, velvet, jewel tones</strong>, or even tasteful black-tie with a little edge. There is no wrong answer here except beige. <em>Never beige.</em> If you own a leather jacket and a tiara, tonight is your night. The couple will be in black, gold, and an undisclosed amount of sequins.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RSVP
+  ============================================================ -->
+  <section id="rsvp">
+    <div class="rsvp-inner">
+      <div class="rsvp-header">
+        <span class="section-label reveal" style="text-align:center;display:block;">Reserve Your Seat</span>
+        <h2 class="rsvp-title reveal delay-1">Will you<br/><em>join us?</em></h2>
+        <div class="gold-divider reveal delay-2"></div>
+        <p class="rsvp-subtitle reveal delay-2">
+          We would be absolutely delighted to share this day with you. Please let us know by filling in the form below so we can make sure your place at the table is ready and waiting.
+        </p>
+        <p class="rsvp-deadline reveal delay-3">RSVP by September 1st, 2026</p>
+      </div>
+
+      <form class="rsvp-form reveal delay-2" id="rsvpForm">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name</label>
+            <input class="form-input" type="text" id="firstName" name="entry.XXXXXXX1" placeholder="Your first name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input class="form-input" type="text" id="lastName" name="entry.XXXXXXX2" placeholder="Your last name" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input class="form-input" type="email" id="email" name="entry.XXXXXXX3" placeholder="you@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Are you attending?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="yes" name="entry.XXXXXXX4" value="Joyfully accepts" checked />
+              <label class="radio-label" for="yes">Joyfully Accepts 🥂</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="no" name="entry.XXXXXXX4" value="Regretfully declines" />
+              <label class="radio-label" for="no">Regretfully Declines 💌</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="guests">Number of Guests (including yourself)</label>
+          <select class="form-select" id="guests" name="entry.XXXXXXX5">
+            <option value="1">Just me</option>
+            <option value="2" selected>2 people</option>
+            <option value="3">3 people</option>
+            <option value="4">4 people</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="dietary">Dietary Requirements</label>
+          <input class="form-input" type="text" id="dietary" name="entry.XXXXXXX6" placeholder="Vegetkayleighn, gluten-free, none..." />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="song">Song Request for the Dance Floor</label>
+          <input class="form-input" type="text" id="song" name="entry.XXXXXXX7" placeholder="What track will get you on the floor?" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="message">A Note for the Couple</label>
+          <textarea class="form-textarea" id="message" name="entry.XXXXXXX8" placeholder="Leave Kayleigh & Estian a message, a memory, or your best wedding advice..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-rsvp">Send My RSVP ♥</button>
+
+      </form>
+
+      <!-- Success message shown after submission -->
+      <div class="form-success" id="formSuccess">
+        <h3>You're in! ✨</h3>
+        <p>Thank you so much. We can't wait to celebrate with you.<br/>Expect a carrier pigeon (or email) from us soon.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <p class="footer-names">Kayleigh & Estian</p>
+    <p class="footer-date">05 April 2026 · Pretoria</p>
+    <nav class="footer-links">
+      <a href="#her">Kayleigh</a>
+      <a href="#his">Estian</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
+    <p class="footer-copy">Made with ♥ and a healthy amount of distortion pedal.</p>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ---- Custom cursor ---- */
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animateCursor() {
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+      cursorRing.style.left = rx + 'px';
+      cursorRing.style.top  = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('a, button, .tag, .photo-card, .gal-item, .detail-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; cursorRing.style.width = '60px'; cursorRing.style.height = '60px'; });
+      el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; cursorRing.style.width = '40px'; cursorRing.style.height = '40px'; });
+    });
+
+    /* ---- Particles ---- */
+    const particleContainer = document.getElementById('particles');
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random()*100}%;
+        width: ${1 + Math.random()*2}px;
+        height: ${1 + Math.random()*2}px;
+        animation-duration: ${6 + Math.random()*10}s;
+        animation-delay: ${Math.random()*8}s;
+        opacity: ${0.3 + Math.random()*0.4};
+        background: ${Math.random() > 0.5 ? 'var(--gold)' : 'var(--blush)'};
+      `;
+      particleContainer.appendChild(p);
+    }
+
+    /* ---- Sparks ---- */
+    const sparksContainer = document.getElementById('sparks');
+    if (sparksContainer) {
+      for (let i = 0; i < 12; i++) {
+        const s = document.createElement('div');
+        s.className = 'spark';
+        s.style.cssText = `
+          left: ${Math.random()*100}%;
+          animation-duration: ${2 + Math.random()*3}s;
+          animation-delay: ${Math.random()*4}s;
+          height: ${10 + Math.random()*20}px;
+          background: linear-gradient(to bottom, ${Math.random()>0.5?'var(--electric)':'var(--neon)'}, transparent);
+        `;
+        sparksContainer.appendChild(s);
+      }
+    }
+
+    /* ---- Scroll reveal ---- */
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ---- Navbar scroll ---- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+
+    /* ---- Mobile menu ---- */
+    const hamburger   = document.getElementById('hamburger');
+    const navLinks    = document.getElementById('navLinks');   /* desktop list */
+    const menuOverlay = document.getElementById('menuOverlay');/* mobile overlay */
+
+    function openMenu() {
+      menuOverlay.classList.add('open');
+      hamburger.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      resizeMenuCanvas();
+      if (!menuAnimId) animateMenuCanvas();
+    }
+    function closeMenu() {
+      menuOverlay.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      menuOverlay.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    /* Close button inside overlay */
+    document.getElementById('menuClose').addEventListener('click', closeMenu);
+
+    /* Close when any overlay link is clicked */
+    document.querySelectorAll('#menuList a').forEach(a =>
+      a.addEventListener('click', closeMenu)
+    );
+
+    /* Close on Escape key */
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+    /* ---- Menu canvas particles ---- */
+    const menuCanvas = document.getElementById('menuCanvas');
+    const mCtx = menuCanvas.getContext('2d');
+    let mW = 0, mH = 0, menuAnimId = null;
+    const mParticles = [];
+
+    function resizeMenuCanvas() {
+      mW = menuCanvas.offsetWidth  || window.innerWidth;
+      mH = menuCanvas.offsetHeight || window.innerHeight;
+      menuCanvas.width  = mW;
+      menuCanvas.height = mH;
+    }
+
+    function spawnMP() {
+      return {
+        x: Math.random() * mW,
+        y: mH + 10,
+        r: 0.8 + Math.random() * 1.6,
+        speed: 0.4 + Math.random() * 0.9,
+        opacity: 0,
+        maxOpacity: 0.25 + Math.random() * 0.45,
+        color: Math.random() > 0.5 ? '#c9a84c' : '#e8b4a2',
+        life: 0,
+        maxLife: 140 + Math.random() * 200
+      };
+    }
+
+    /* Pre-seed particles at random heights */
+    resizeMenuCanvas();
+    for (let i = 0; i < 70; i++) {
+      const p = spawnMP();
+      p.y    = Math.random() * mH;
+      p.life = Math.random() * p.maxLife;
+      mParticles.push(p);
+    }
+
+    function animateMenuCanvas() {
+      if (!menuOverlay.classList.contains('open')) { menuAnimId = null; return; }
+      mCtx.clearRect(0, 0, mW, mH);
+      for (let i = 0; i < mParticles.length; i++) {
+        const p = mParticles[i];
+        p.y -= p.speed;
+        p.life++;
+        const half = p.maxLife / 2;
+        p.opacity = p.life < half
+          ? (p.life / half) * p.maxOpacity
+          : ((p.maxLife - p.life) / half) * p.maxOpacity;
+        if (p.life >= p.maxLife || p.y < -10) { mParticles[i] = spawnMP(); continue; }
+        mCtx.beginPath();
+        mCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        mCtx.fillStyle = p.color;
+        mCtx.globalAlpha = p.opacity;
+        mCtx.fill();
+      }
+      mCtx.globalAlpha = 1;
+      menuAnimId = requestAnimationFrame(animateMenuCanvas);
+    }
+
+    window.addEventListener('resize', () => { if (menuOverlay.classList.contains('open')) resizeMenuCanvas(); });
+
+    /* ---- Countdown ---- */
+    function updateCountdown() {
+      const wedding = new Date('2026-04-05T16:00:00');
+      const now     = new Date();
+      let diff = wedding - now;
+      if (diff < 0) {
+        document.getElementById('countdown').innerHTML = '<p style="font-family:var(--font-serif);font-style:italic;color:var(--gold);font-size:1.4rem;">Today is the day! 🥂</p>';
+        return;
+      }
+      const days  = Math.floor(diff / 86400000); diff %= 86400000;
+      const hours = Math.floor(diff / 3600000);  diff %= 3600000;
+      const mins  = Math.floor(diff / 60000);    diff %= 60000;
+      const secs  = Math.floor(diff / 1000);
+      document.getElementById('cDays').textContent  = String(days).padStart(3,'0');
+      document.getElementById('cHours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('cMins').textContent  = String(mins).padStart(2,'0');
+      document.getElementById('cSecs').textContent  = String(secs).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ---- RSVP Form → Google Forms ---- */
+    /*
+      HOW TO LINK TO GOOGLE FORMS:
+      1. Create your Google Form at forms.google.com
+      2. Click the 3-dot menu → "Get pre-filled link"
+      3. Fill each field and click "Get Link"
+      4. From the URL, copy the "entry.XXXXXXX" numbers for each field
+      5. Replace the placeholder entry.XXXXXXX values in the form fields above
+      6. Update GOOGLE_FORM_ACTION_URL below with your form's action URL
+         (Get it by right-clicking "Submit" in the form preview → inspect → find the <form action="">)
+    */
+    const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse';
+
+    const rsvpForm    = document.getElementById('rsvpForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    rsvpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(rsvpForm);
+
+      try {
+        // Google Forms doesn't allow CORS fetch; we use a hidden iframe trick
+        const iframe = document.createElement('iframe');
+        iframe.name = 'hidden_iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        const tempForm = document.createElement('form');
+        tempForm.action = GOOGLE_FORM_ACTION_URL;
+        tempForm.method = 'POST';
+        tempForm.target = 'hidden_iframe';
+
+        data.forEach((value, key) => {
+          const input = document.createElement('input');
+          input.type  = 'hidden';
+          input.name  = key;
+          input.value = value;
+          tempForm.appendChild(input);
+        });
+
+        document.body.appendChild(tempForm);
+        tempForm.submit();
+
+        // Show success after a short delay
+        setTimeout(() => {
+          rsvpForm.style.display    = 'none';
+          formSuccess.classList.add('show');
+          document.body.removeChild(tempForm);
+          document.body.removeChild(iframe);
+        }, 800);
+
+      } catch (err) {
+        // Fallback — still show success (form usually submits fine despite CORS error in console)
+        rsvpForm.style.display    = 'none';
+        formSuccess.classList.add('show');
+      }
+    });
+
+    /* ---- Parallax subtle effect ---- */
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroBg  = document.querySelector('.hero-bg');
+      if (heroBg) heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+    });
+
+  </script>
+</body>
+</html>
