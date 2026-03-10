@@ -53,6 +53,7 @@
     .cursor {
       position: fixed;
       width: 12px; height: 12px;
+      top: 0; left: 0;
       background: var(--gold);
       border-radius: 50%;
       pointer-events: none;
@@ -60,10 +61,12 @@
       transform: translate(-50%, -50%);
       transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
       mix-blend-mode: difference;
+      will-change: transform;
     }
     .cursor-ring {
       position: fixed;
       width: 40px; height: 40px;
+      top: 0; left: 0;
       border: 1.5px solid var(--gold);
       border-radius: 50%;
       pointer-events: none;
@@ -71,6 +74,7 @@
       transform: translate(-50%, -50%);
       transition: transform 0.15s var(--ease-out), width 0.3s, height 0.3s, border-color 0.3s;
       opacity: 0.6;
+      will-change: transform;
     }
     body:hover .cursor { opacity: 1; }
 
@@ -305,7 +309,8 @@
     /* ============================================================
        SECTION SHARED
     ============================================================ */
-    section { position: relative; overflow: hidden; }
+    section { position: relative; overflow: hidden; content-visibility: auto; contain-intrinsic-size: 0 600px; }
+    #hero { content-visibility: visible; contain-intrinsic-size: none; }
     .section-label {
       font-family: var(--font-serif);
       font-style: italic;
@@ -387,6 +392,7 @@
       display: block;
       transition: transform 0.6s var(--ease-out), filter 0.4s;
       filter: saturate(0.8) contrast(1.05);
+      will-change: transform;
     }
     .photo-card:hover img { transform: scale(1.06); filter: saturate(1) contrast(1.05); }
     .photo-card:nth-child(1) { grid-row: span 2; height: 380px; }
@@ -988,6 +994,7 @@
       object-fit: cover;
       transition: transform 0.6s var(--ease-out), filter 0.4s;
       filter: saturate(0.7);
+      will-change: transform;
     }
     .gal-item:hover img { transform: scale(1.08); filter: saturate(1.1); }
     .gal-item .gal-overlay {
@@ -1459,7 +1466,7 @@
     }
     #menuOverlay.open {
       opacity: 1;
-      pointer-events: all;
+      pointer-events: auto;
       transform: translateY(0);
     }
     #menuCanvas {
@@ -2052,28 +2059,44 @@
        JAVASCRIPT
   ============================================================ -->
   <script>
-    /* ---- Custom cursor ---- */
-    const cursor = document.getElementById('cursor');
+    /* ---- Custom cursor — GPU-composited via transform, never left/top ---- */
+    const cursor     = document.getElementById('cursor');
     const cursorRing = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
     function animateCursor() {
       rx += (mx - rx) * 0.14;
       ry += (my - ry) * 0.14;
-      cursor.style.left = mx + 'px';
-      cursor.style.top  = my + 'px';
-      cursorRing.style.left = rx + 'px';
-      cursorRing.style.top  = ry + 'px';
+      cursor.style.transform     = `translate(calc(-50% + ${mx}px), calc(-50% + ${my}px))`;
+      cursorRing.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px))`;
       requestAnimationFrame(animateCursor);
     }
     animateCursor();
-    document.querySelectorAll('a, button, .tag, .photo-card, .gal-item, .detail-card').forEach(el => {
-      el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; cursorRing.style.width = '60px'; cursorRing.style.height = '60px'; });
-      el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; cursorRing.style.width = '40px'; cursorRing.style.height = '40px'; });
-    });
+
+    /* Event delegation instead of per-element listeners */
+    const cursorTargetSelector = 'a, button, .tag, .photo-card, .gal-item, .detail-card';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(cursorTargetSelector)) {
+        cursor.style.width  = '24px';
+        cursor.style.height = '24px';
+        cursorRing.style.width  = '60px';
+        cursorRing.style.height = '60px';
+      }
+    }, { passive: true });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(cursorTargetSelector)) {
+        cursor.style.width  = '12px';
+        cursor.style.height = '12px';
+        cursorRing.style.width  = '40px';
+        cursorRing.style.height = '40px';
+      }
+    }, { passive: true });
 
     /* ---- Particles ---- */
     const particleContainer = document.getElementById('particles');
+    const pFrag = document.createDocumentFragment();
     for (let i = 0; i < 40; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
@@ -2086,12 +2109,14 @@
         opacity: ${0.3 + Math.random()*0.4};
         background: ${Math.random() > 0.5 ? 'var(--gold)' : 'var(--blush)'};
       `;
-      particleContainer.appendChild(p);
+      pFrag.appendChild(p);
     }
+    particleContainer.appendChild(pFrag);
 
     /* ---- Sparks ---- */
     const sparksContainer = document.getElementById('sparks');
     if (sparksContainer) {
+      const sFrag = document.createDocumentFragment();
       for (let i = 0; i < 12; i++) {
         const s = document.createElement('div');
         s.className = 'spark';
@@ -2102,8 +2127,9 @@
           height: ${10 + Math.random()*20}px;
           background: linear-gradient(to bottom, ${Math.random()>0.5?'var(--electric)':'var(--neon)'}, transparent);
         `;
-        sparksContainer.appendChild(s);
+        sFrag.appendChild(s);
       }
+      sparksContainer.appendChild(sFrag);
     }
 
     /* ---- Scroll reveal ---- */
@@ -2113,9 +2139,24 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
-    /* ---- Navbar scroll ---- */
+    /* ---- Navbar scroll + Parallax — single merged passive listener with RAF tick ---- */
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+    const heroBg = document.querySelector('.hero-bg'); /* cached once outside handler */
+    let scrollTicking = false;
+
+    function onScrollTick() {
+      const scrollY = window.scrollY;
+      navbar.classList.toggle('scrolled', scrollY > 60);
+      if (heroBg) heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+      scrollTicking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(onScrollTick);
+        scrollTicking = true;
+      }
+    }, { passive: true });
 
     /* ---- Mobile menu ---- */
     const hamburger   = document.getElementById('hamburger');
@@ -2150,7 +2191,7 @@
     /* Close on Escape key */
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
-    /* ---- Menu canvas particles ---- */
+    /* ---- Menu canvas particles — batched fillStyle by color ---- */
     const menuCanvas = document.getElementById('menuCanvas');
     const mCtx = menuCanvas.getContext('2d');
     let mW = 0, mH = 0, menuAnimId = null;
@@ -2189,6 +2230,10 @@
     function animateMenuCanvas() {
       if (!menuOverlay.classList.contains('open')) { menuAnimId = null; return; }
       mCtx.clearRect(0, 0, mW, mH);
+
+      /* Sort into two colour buckets to minimise fillStyle switches */
+      const gold  = [];
+      const blush = [];
       for (let i = 0; i < mParticles.length; i++) {
         const p = mParticles[i];
         p.y -= p.speed;
@@ -2198,17 +2243,25 @@
           ? (p.life / half) * p.maxOpacity
           : ((p.maxLife - p.life) / half) * p.maxOpacity;
         if (p.life >= p.maxLife || p.y < -10) { mParticles[i] = spawnMP(); continue; }
-        mCtx.beginPath();
-        mCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        mCtx.fillStyle = p.color;
-        mCtx.globalAlpha = p.opacity;
-        mCtx.fill();
+        (p.color === '#c9a84c' ? gold : blush).push(p);
       }
+
+      const drawBucket = (bucket, color) => {
+        mCtx.fillStyle = color;
+        for (const p of bucket) {
+          mCtx.globalAlpha = p.opacity;
+          mCtx.beginPath();
+          mCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          mCtx.fill();
+        }
+      };
+      drawBucket(gold,  '#c9a84c');
+      drawBucket(blush, '#e8b4a2');
       mCtx.globalAlpha = 1;
       menuAnimId = requestAnimationFrame(animateMenuCanvas);
     }
 
-    window.addEventListener('resize', () => { if (menuOverlay.classList.contains('open')) resizeMenuCanvas(); });
+    window.addEventListener('resize', () => { if (menuOverlay.classList.contains('open')) resizeMenuCanvas(); }, { passive: true });
 
     /* ---- Countdown ---- */
     function updateCountdown() {
@@ -2287,13 +2340,6 @@
         rsvpForm.style.display    = 'none';
         formSuccess.classList.add('show');
       }
-    });
-
-    /* ---- Parallax subtle effect ---- */
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const heroBg  = document.querySelector('.hero-bg');
-      if (heroBg) heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
     });
 
   </script>
