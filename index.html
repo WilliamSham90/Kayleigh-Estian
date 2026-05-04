@@ -10,7 +10,7 @@
 
   <style>
     /* ============================================================
-       CSS RESET & ROOT VKAYLEIGHBLES
+       CSS RESET & ROOT VARIABLES
     ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -118,7 +118,6 @@
       color: var(--gold);
       letter-spacing: 0.05em;
     }
-    /* Desktop nav: visible by default */
     .nav-links {
       display: flex;
       gap: 30px;
@@ -136,7 +135,7 @@
     }
     .nav-links a:hover { opacity: 1; color: var(--gold); }
 
-    /* Hamburger: hidden on desktop */
+    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -146,7 +145,6 @@
       position: relative;
     }
     .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--cream); transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1); transform-origin: center; }
-    /* X state when open */
     .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
@@ -172,7 +170,6 @@
         radial-gradient(ellipse 100% 80% at 50% 50%, rgba(17,14,14,1) 0%, rgba(10,8,8,1) 100%);
     }
 
-    /* Floating particles */
     .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
     .particle {
       position: absolute;
@@ -278,7 +275,6 @@
     }
     @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
 
-    /* Countdown timer */
     .countdown {
       display: flex; gap: clamp(16px, 4vw, 40px);
       margin-top: 40px;
@@ -320,643 +316,6 @@
       color: var(--gold);
       margin-bottom: 12px;
       display: block;
-    }
-
-    /* ============================================================
-       HER SECTION — PHOTOGRAPHER
-    ============================================================ */
-    #her {
-      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px);
-      background:
-        radial-gradient(ellipse 60% 70% at 10% 50%, rgba(232,180,162,0.05) 0%, transparent 70%),
-        linear-gradient(160deg, #0e0b0b 0%, #15100f 100%);
-    }
-
-    .her-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: clamp(40px, 6vw, 80px); align-items: center;
-    }
-
-    .her-text {}
-    .her-title {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-style: italic;
-      font-size: clamp(3rem, 7vw, 6rem);
-      line-height: 0.95;
-      color: var(--cream);
-      margin-bottom: 24px;
-    }
-    .her-title span { color: var(--blush); }
-    .her-story {
-      font-size: clamp(1rem, 1.5vw, 1.15rem);
-      line-height: 1.8;
-      color: rgba(245,237,224,0.65);
-      margin-bottom: 24px;
-    }
-    .her-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 20px;
-      border: 1px solid rgba(232,180,162,0.3);
-      border-radius: 100px;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--blush);
-    }
-    .her-badge::before { content: '◉'; font-size: 0.6rem; }
-
-    /* Photo grid */
-    .her-photos {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 12px;
-    }
-    .photo-card {
-      position: relative; overflow: hidden;
-      border-radius: 4px;
-      background: var(--charcoal);
-      cursor: none;
-    }
-    .photo-card::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .photo-card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s var(--ease-out), filter 0.4s;
-      filter: saturate(0.8) contrast(1.05);
-      will-change: transform;
-    }
-    .photo-card:hover img { transform: scale(1.06); filter: saturate(1) contrast(1.05); }
-    .photo-card:nth-child(1) { grid-row: span 2; height: 380px; }
-    .photo-card:nth-child(2) { height: 180px; }
-    .photo-card:nth-child(3) { height: 180px; }
-
-    /* Film grain overlay */
-    .grain {
-      position: absolute; inset: 0; pointer-events: none; z-index: 2;
-      opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    }
-
-    /* Camera icon */
-    .camera-icon {
-      width: 32px; height: 32px;
-      margin-bottom: 16px;
-      color: var(--blush);
-    }
-
-    /* ============================================================
-       HIS SECTION — HEAVY METAL
-    ============================================================ */
-    #his {
-      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px);
-      background: #070505;
-      position: relative;
-    }
-
-    /* Electric border top */
-    #his::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--electric), var(--neon), var(--electric), transparent);
-      animation: electric-flow 3s linear infinite;
-    }
-    @keyframes electric-flow {
-      0%   { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    .his-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: clamp(40px, 6vw, 80px); align-items: center;
-    }
-
-    /* Glitch hero image */
-    .his-image-wrap {
-      position: relative;
-    }
-    .his-main-img {
-      width: 100%; height: 440px;
-      object-fit: cover;
-      border-radius: 4px;
-      display: block;
-      filter: saturate(0.2) contrast(1.4) brightness(0.85);
-      transition: filter 0.4s;
-    }
-    .his-image-wrap:hover .his-main-img {
-      filter: saturate(0.1) contrast(1.6) brightness(0.9);
-      animation: glitch-img 0.3s steps(2) infinite;
-    }
-    @keyframes glitch-img {
-      0%   { clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); transform: translate(-4px,0); }
-      25%  { clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%); transform: translate(4px,0); }
-      50%  { clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%); transform: translate(-2px,0); }
-      75%  { clip-path: none; transform: translate(0,0); }
-      100% { clip-path: none; transform: translate(0,0); }
-    }
-
-    .his-image-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(7,5,5,0.8) 0%, transparent 50%);
-      border-radius: 4px;
-    }
-    .his-image-tag {
-      position: absolute; bottom: 20px; left: 20px;
-      font-family: var(--font-rock);
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      color: var(--electric);
-      text-transform: uppercase;
-    }
-
-    /* Spark decorations */
-    .sparks { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-    .spark {
-      position: absolute;
-      width: 2px; height: 20px;
-      background: linear-gradient(to bottom, var(--electric), transparent);
-      animation: spark-fall linear infinite;
-      opacity: 0;
-    }
-    @keyframes spark-fall {
-      0%  { transform: translateY(-20px) rotate(15deg); opacity: 0; }
-      20% { opacity: 1; }
-      80% { opacity: 0.5; }
-      100%{ transform: translateY(460px) rotate(15deg); opacity: 0; }
-    }
-
-    .his-text {}
-    .his-title {
-      font-family: var(--font-rock);
-      font-size: clamp(2.8rem, 7vw, 6rem);
-      line-height: 0.95;
-      color: var(--cream);
-      margin-bottom: 24px;
-      text-shadow: 0 0 40px rgba(255,45,107,0.3);
-    }
-    .his-title .fire { color: var(--electric); }
-
-    .his-story {
-      font-size: clamp(1rem, 1.5vw, 1.1rem);
-      line-height: 1.8;
-      color: rgba(245,237,224,0.55);
-      margin-bottom: 32px;
-      font-family: var(--font-serif);
-    }
-
-    /* Genre tags */
-    .genre-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-    .tag {
-      padding: 5px 14px;
-      border: 1px solid rgba(255,45,107,0.4);
-      border-radius: 3px;
-      font-family: var(--font-rock);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      color: var(--electric);
-      text-transform: uppercase;
-      transition: background 0.3s, color 0.3s;
-    }
-    .tag:hover { background: var(--electric); color: var(--black); }
-
-    /* Band logo simulation */
-    .band-logo {
-      font-family: var(--font-rock);
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      color: var(--electric);
-      letter-spacing: 0.1em;
-      text-shadow: 0 0 20px rgba(255,45,107,0.6), 0 0 60px rgba(255,45,107,0.2);
-      animation: pulse-glow 2s ease-in-out infinite;
-    }
-    @keyframes pulse-glow {
-      0%,100% { text-shadow: 0 0 20px rgba(255,45,107,0.6), 0 0 60px rgba(255,45,107,0.2); }
-      50%      { text-shadow: 0 0 30px rgba(255,45,107,0.9), 0 0 80px rgba(255,45,107,0.4), 0 0 120px rgba(255,45,107,0.15); }
-    }
-
-
-    /* ============================================================
-       HIS SECTION — IMAGE GRID (3 cards, unique hover animations)
-    ============================================================ */
-    .his-grid-wrap {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 10px;
-    }
-
-    /* Base card styles */
-    .his-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 4px;
-      background: #111;
-      cursor: none;
-    }
-    .his-card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .his-card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(7,5,5,0.85) 0%, transparent 55%);
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    /* Card 1: spans full left column — GLITCH sweep */
-    .his-card--glitch {
-      grid-column: 1 / 2;
-      grid-row: 1 / 3;
-      height: 420px;
-    }
-    .his-card--glitch img {
-      filter: saturate(0.15) contrast(1.4) brightness(0.85);
-      transition: filter 0.3s;
-    }
-    .his-card--glitch::before,
-    .his-card--glitch::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: inherit;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-      z-index: 2;
-    }
-    .his-card--glitch:hover img {
-      filter: saturate(0.1) contrast(1.7) brightness(0.85);
-      animation: glitch-img 0.25s steps(2) infinite;
-    }
-    .his-card--glitch:hover::before {
-      opacity: 0.12;
-      background: var(--electric);
-      mix-blend-mode: color;
-      animation: glitch-shift-r 0.3s steps(2) infinite;
-    }
-    .his-card--glitch:hover::after {
-      opacity: 0.08;
-      background: var(--cyan);
-      mix-blend-mode: color;
-      animation: glitch-shift-l 0.4s steps(2) infinite;
-    }
-    @keyframes glitch-shift-r {
-      0%  { transform: translate(4px, -2px); clip-path: polygon(0 20%, 100% 20%, 100% 35%, 0 35%); }
-      50% { transform: translate(-3px, 1px); clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%); }
-      100%{ transform: translate(0,0); clip-path: none; }
-    }
-    @keyframes glitch-shift-l {
-      0%  { transform: translate(-4px, 2px); clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%); }
-      50% { transform: translate(3px, -1px); clip-path: polygon(0 10%, 100% 10%, 100% 25%, 0 25%); }
-      100%{ transform: translate(0,0); clip-path: none; }
-    }
-
-    /* Card 2: top right — RED BURN zoom */
-    .his-card--burn {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-      height: 200px;
-    }
-    .his-card--burn img {
-      filter: saturate(0.2) contrast(1.3) brightness(0.8);
-      transform: scale(1);
-      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                  filter 0.5s ease;
-    }
-    .his-card--burn::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(255,45,107,0) 0%, rgba(255,45,107,0.55) 100%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      z-index: 2;
-      mix-blend-mode: multiply;
-    }
-    .his-card--burn:hover img {
-      transform: scale(1.12);
-      filter: saturate(0.6) contrast(1.2) brightness(0.75);
-    }
-    .his-card--burn:hover::after { opacity: 1; }
-
-    /* Card 3: bottom right — DIAGONAL WIPE */
-    .his-card--wipe {
-      grid-column: 2 / 3;
-      grid-row: 2 / 3;
-      height: 210px;
-    }
-    .his-card--wipe img {
-      filter: saturate(0.15) contrast(1.4) brightness(0.8);
-      transition: filter 0.5s ease, transform 0.5s ease;
-      transform: scale(1.04);
-    }
-    .his-card--wipe::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(135deg,
-        rgba(255,45,107,0.5) 0%,
-        rgba(255,107,187,0.3) 40%,
-        transparent 60%
-      );
-      opacity: 0;
-      transform: translateX(-100%) translateY(-100%);
-      transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .his-card--wipe:hover img {
-      filter: saturate(0.4) contrast(1.2) brightness(0.85);
-      transform: scale(1);
-    }
-    .his-card--wipe:hover::before {
-      opacity: 1;
-      transform: translateX(0) translateY(0);
-    }
-
-    /* ── Song Card ─────────────────────────────────────────────── */
-    .song-card {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      border: 1px solid rgba(255,45,107,0.25);
-      border-radius: 8px;
-      background: rgba(255,45,107,0.05);
-      margin-bottom: 28px;
-      transition: border-color 0.3s, background 0.3s, transform 0.3s var(--ease-spring);
-      position: relative;
-      overflow: hidden;
-    }
-    .song-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; bottom: 0;
-      width: 3px;
-      background: linear-gradient(to bottom, var(--electric), var(--neon));
-      border-radius: 3px 0 0 3px;
-    }
-    .song-card:hover {
-      border-color: rgba(255,45,107,0.55);
-      background: rgba(255,45,107,0.1);
-      transform: translateY(-3px);
-    }
-
-    /* Vinyl record icon */
-    .song-vinyl {
-      flex-shrink: 0;
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: conic-gradient(
-        #1a0808 0deg, #2a1010 60deg, #1a0808 120deg,
-        #2a1010 180deg, #1a0808 240deg, #2a1010 300deg, #1a0808 360deg
-      );
-      border: 2px solid rgba(255,45,107,0.4);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-      animation: vinyl-spin 4s linear infinite paused;
-    }
-    .song-card:hover .song-vinyl { animation-play-state: running; }
-    @keyframes vinyl-spin { to { transform: rotate(360deg); } }
-    .vinyl-ring {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255,45,107,0.5);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .vinyl-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--electric);
-      box-shadow: 0 0 6px var(--electric);
-    }
-
-    .song-info { flex: 1; min-width: 0; }
-    .song-label {
-      display: block;
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--electric);
-      margin-bottom: 3px;
-    }
-    .song-title {
-      font-family: var(--font-rock);
-      font-size: 1rem;
-      color: var(--cream);
-      letter-spacing: 0.05em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .song-mix {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 0.8rem;
-      color: rgba(245,237,224,0.45);
-      font-weight: 400;
-    }
-    .song-artist {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 0.85rem;
-      color: rgba(245,237,224,0.5);
-      margin-top: 2px;
-    }
-
-    /* Animated sound bars */
-    .song-bars {
-      flex-shrink: 0;
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      height: 24px;
-    }
-    .song-bars span {
-      display: block;
-      width: 3px;
-      border-radius: 2px;
-      background: var(--electric);
-      height: 4px;
-      animation: bar-idle 1.4s ease-in-out infinite;
-    }
-    .song-bars span:nth-child(1) { animation-delay: 0s;    animation-duration: 1.1s; }
-    .song-bars span:nth-child(2) { animation-delay: 0.15s; animation-duration: 0.9s; }
-    .song-bars span:nth-child(3) { animation-delay: 0.3s;  animation-duration: 1.3s; }
-    .song-bars span:nth-child(4) { animation-delay: 0.45s; animation-duration: 1.0s; }
-    .song-bars span:nth-child(5) { animation-delay: 0.6s;  animation-duration: 1.2s; }
-    @keyframes bar-idle {
-      0%,100% { height: 4px;  opacity: 0.4; }
-      50%      { height: 22px; opacity: 1;   }
-    }
-    .song-card:hover .song-bars span { opacity: 1; }
-
-    /* Responsive for his-grid */
-    @media (max-width: 900px) {
-      .his-grid-wrap { grid-template-columns: 1fr 1fr; }
-      .his-card--glitch { height: 300px; }
-      .his-card--burn   { height: 145px; }
-      .his-card--wipe   { height: 145px; }
-    }
-    @media (max-width: 600px) {
-      .his-grid-wrap { grid-template-columns: 1fr; }
-      .his-card--glitch { grid-column: 1; grid-row: auto; height: 240px; }
-      .his-card--burn   { grid-column: 1; grid-row: auto; height: 200px; }
-      .his-card--wipe   { grid-column: 1; grid-row: auto; height: 200px; }
-    }
-
-    /* ============================================================
-       ADVENTURE TIME SECTION
-    ============================================================ */
-    #at {
-      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
-      background: linear-gradient(160deg, #0d1a2b 0%, #1a2d1a 50%, #2d1a0d 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Cartoon clouds */
-    .at-cloud {
-      position: absolute;
-      background: rgba(135,206,235,0.08);
-      border-radius: 50px;
-      filter: blur(30px);
-      pointer-events: none;
-    }
-
-    .at-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
-
-    .at-eyebrow {
-      font-family: var(--font-cute);
-      font-weight: 900;
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--at-yellow);
-      margin-bottom: 12px;
-    }
-
-    .at-title {
-      font-family: var(--font-cute);
-      font-weight: 900;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      color: var(--at-yellow);
-      text-shadow: 4px 4px 0px rgba(0,0,0,0.5), 0 0 40px rgba(255,207,0,0.3);
-      margin-bottom: 16px;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-    }
-
-    .at-subtitle {
-      font-family: var(--font-cute);
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      color: rgba(135,206,235,0.8);
-      margin-bottom: 60px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* The AT illustration area */
-    .at-scene {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto 60px;
-    }
-
-    .at-canvas {
-      width: 100%;
-      border-radius: 20px;
-      border: 4px solid #333;
-      box-shadow: 8px 8px 0px rgba(0,0,0,0.5), 0 0 60px rgba(255,207,0,0.1);
-      position: relative;
-      overflow: hidden;
-      background: #0d1a2b;
-      aspect-ratio: 16 / 9;
-    }
-    .at-canvas img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .at-canvas:hover img { transform: scale(1.03); }
-    .at-canvas-caption {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 20px 24px 20px;
-      background: linear-gradient(to top, rgba(10,8,8,0.92) 0%, transparent 100%);
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: clamp(0.75rem, 1.8vw, 1rem);
-      color: #ffcf00;
-      text-align: center;
-      letter-spacing: 0.05em;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    }
-
-    /* SVG inline illustration */
-    .at-svg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-    }
-
-    /* Floating AT characters  */
-    .at-float {
-      animation: at-bounce 2.5s ease-in-out infinite;
-    }
-    .at-float-2 { animation: at-bounce 2s ease-in-out 0.5s infinite; }
-    .at-float-3 { animation: at-bounce 3s ease-in-out 1s infinite; }
-    @keyframes at-bounce {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-12px); }
-    }
-
-    .at-hearts {
-      display: flex; justify-content: center; gap: 16px;
-      margin-bottom: 30px;
-    }
-    .heart-icon {
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      animation: heart-beat 1.2s ease-in-out infinite;
-    }
-    .heart-icon:nth-child(2) { animation-delay: 0.2s; }
-    .heart-icon:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes heart-beat {
-      0%,100% { transform: scale(1); }
-      50%      { transform: scale(1.2); }
-    }
-
-    .at-story {
-      font-family: var(--font-cute);
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
-      line-height: 1.8;
-      color: rgba(135,206,235,0.85);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .at-story strong { color: var(--at-yellow); }
-
-    /* Stars */
-    .at-star {
-      position: absolute;
-      color: var(--at-yellow);
-      font-size: 1rem;
-      animation: twinkle 2s ease-in-out infinite;
-      pointer-events: none;
-    }
-    @keyframes twinkle {
-      0%,100% { opacity: 1; transform: scale(1) rotate(0deg); }
-      50%      { opacity: 0.3; transform: scale(0.7) rotate(20deg); }
     }
 
     /* ============================================================
@@ -1012,7 +371,6 @@
       color: var(--gold);
     }
 
-    /* Grid positions */
     .gal-1 { grid-column: 1/5;  grid-row: 1/7;  }
     .gal-2 { grid-column: 5/9;  grid-row: 1/5;  }
     .gal-3 { grid-column: 9/13; grid-row: 1/7;  }
@@ -1126,7 +484,6 @@
       line-height: 1.5;
     }
 
-    /* Dress code */
     .dress-code {
       margin-top: 60px;
       padding: 40px;
@@ -1191,11 +548,8 @@
       letter-spacing: 0.1em;
     }
 
-    /* Form */
     .rsvp-form { display: flex; flex-direction: column; gap: 24px; }
-
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
     .form-group { display: flex; flex-direction: column; gap: 8px; }
     .form-label {
       font-family: var(--font-serif);
@@ -1229,12 +583,8 @@
     .form-select option { background: var(--charcoal); color: var(--cream); }
     .form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
 
-    /* Radio group for RSVP yes/no */
     .radio-group { display: flex; gap: 12px; }
-    .radio-option {
-      flex: 1;
-      position: relative;
-    }
+    .radio-option { flex: 1; position: relative; }
     .radio-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
     .radio-label {
       display: block;
@@ -1255,7 +605,6 @@
     }
     .radio-label:hover { border-color: rgba(201,168,76,0.5); color: var(--cream); }
 
-    /* Submit btn */
     .btn-rsvp {
       display: block;
       width: 100%;
@@ -1280,7 +629,6 @@
     }
     .btn-rsvp:active { transform: translateY(0); }
 
-    /* Success message */
     .form-success {
       text-align: center;
       padding: 40px;
@@ -1332,7 +680,6 @@
       justify-content: center;
       gap: 24px;
       margin-bottom: 32px;
-      /* Explicitly un-fix the footer nav so it's never pulled to the top */
       position: static !important;
       background: none !important;
       padding: 0 !important;
@@ -1355,6 +702,299 @@
     }
 
     /* ============================================================
+       SCHEDULE TIMELINE
+    ============================================================ */
+    .schedule-strip {
+      margin-top: 72px;
+      padding-top: 56px;
+      border-top: 1px solid rgba(201,168,76,0.12);
+    }
+    .schedule-label {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 40px;
+      display: block;
+    }
+    .schedule-line {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .schedule-item {
+      text-align: center;
+      padding: 0 clamp(20px, 4vw, 52px);
+      position: relative;
+    }
+    .schedule-item + .schedule-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 22px;
+      width: 1px; height: 28px;
+      background: rgba(201,168,76,0.25);
+    }
+    .schedule-time {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .schedule-name {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(245,237,224,0.45);
+      margin-top: 6px;
+      display: block;
+      letter-spacing: 0.08em;
+    }
+
+    /* ============================================================
+       RSVP CTA
+    ============================================================ */
+    .rsvp-cta-box {
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 8px;
+      background: rgba(201,168,76,0.02);
+      padding: 64px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .rsvp-cta-box::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 1px;
+      background: var(--gold);
+    }
+    .rsvp-cta-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 24px;
+    }
+    .rsvp-cta-body {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(245,237,224,0.5);
+      line-height: 1.8;
+      max-width: 420px;
+      margin: 0 auto 40px;
+    }
+    .btn-gold {
+      display: inline-block;
+      padding: 18px 52px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      background-size: 200% 100%;
+      color: var(--black);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-position 0.4s, transform 0.3s var(--ease-spring), box-shadow 0.3s;
+    }
+    .btn-gold:hover {
+      background-position: 100% 0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.28);
+    }
+
+    /* ============================================================
+       INFO SECTIONS — Getting There, Accommodation, Gifts
+    ============================================================ */
+    .info-section {
+      padding: clamp(72px, 8vw, 110px) clamp(20px, 5vw, 60px);
+    }
+    .info-section--alt {
+      background: rgba(201,168,76,0.02);
+    }
+    .info-inner {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .info-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .info-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .info-title em { color: var(--gold); }
+    .info-body {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(245,237,224,0.5);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .info-body strong { color: var(--gold); font-style: normal; font-weight: 400; }
+
+    /* Accommodation cards */
+    .accom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .accom-card {
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px;
+      background: rgba(201,168,76,0.03);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.4s, background 0.4s, transform 0.35s var(--ease-spring);
+      position: relative;
+      overflow: hidden;
+    }
+    .accom-card::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.5s var(--ease-out);
+    }
+    .accom-card:hover::before { width: 100%; }
+    .accom-card:hover {
+      border-color: rgba(201,168,76,0.3);
+      background: rgba(201,168,76,0.05);
+      transform: translateY(-4px);
+    }
+    .accom-num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .accom-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .accom-desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: rgba(245,237,224,0.45);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .btn-outline {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 11px 24px;
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 4px;
+      color: var(--gold);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      text-align: center;
+      transition: border-color 0.3s, background 0.3s, color 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+
+    /* Getting There */
+    .directions-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .directions-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(245,237,224,0.5);
+      line-height: 1.8;
+    }
+    .directions-text strong { color: var(--gold); font-style: normal; font-weight: 400; }
+    .directions-card {
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px;
+      background: rgba(201,168,76,0.03);
+      padding: 36px 32px;
+      text-align: center;
+    }
+    .directions-card p {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--cream);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .directions-card span {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(245,237,224,0.35);
+    }
+
+    /* Gifts */
+    .gifts-table {
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px;
+      background: rgba(201,168,76,0.02);
+      overflow: hidden;
+    }
+    .gifts-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 36px;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .gifts-row:last-child { border-bottom: none; }
+    .gifts-key {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .gifts-val {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--cream);
+    }
+    .gifts-footnote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.88rem;
+      color: rgba(245,237,224,0.3);
+      text-align: center;
+      margin-top: 20px;
+    }
+    .gifts-footnote a { color: var(--gold); text-decoration: none; }
+    .gifts-footnote a:hover { text-decoration: underline; }
+
+    /* ============================================================
        KEYFRAMES
     ============================================================ */
     @keyframes fadeIn    { from{opacity:0} to{opacity:1} }
@@ -1365,7 +1005,6 @@
        RESPONSIVE
     ============================================================ */
     @media (max-width: 900px) {
-      /* Hide desktop links, show hamburger */
       .nav-links {
         display: none !important;
         flex-direction: column;
@@ -1390,26 +1029,19 @@
         transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s;
         letter-spacing: 0.25em;
       }
-      .nav-links.open a {
-        opacity: 0.75;
-        transform: translateY(0);
-      }
+      .nav-links.open a { opacity: 0.75; transform: translateY(0); }
       .nav-links.open li:nth-child(1) a { transition-delay: 0.05s; }
       .nav-links.open li:nth-child(2) a { transition-delay: 0.12s; }
       .nav-links.open li:nth-child(3) a { transition-delay: 0.19s; }
-      .nav-links.open li:nth-child(4) a { transition-delay: 0.26s; }
-      .nav-links.open li:nth-child(5) a { transition-delay: 0.33s; }
       .nav-links a:hover { opacity: 1 !important; color: var(--gold); }
       .hamburger { display: flex; }
 
-      .her-inner, .his-inner {
-        grid-template-columns: 1fr;
-      }
-      .her-photos { order: -1; }
-
-      .details-grid { grid-template-columns: 1fr; max-width: 400px; margin: 40px auto 0; }
-
+      .details-grid { grid-template-columns: 1fr 1fr; max-width: 600px; margin: 40px auto 0; }
       .form-row { grid-template-columns: 1fr; }
+      .accom-grid { grid-template-columns: 1fr; }
+      .directions-content { grid-template-columns: 1fr; gap: 24px; }
+      .schedule-item + .schedule-item::before { display: none; }
+      .rsvp-cta-box { padding: 48px 24px; }
 
       .gallery-grid {
         grid-template-columns: 1fr 1fr;
@@ -1423,12 +1055,11 @@
     @media (max-width: 600px) {
       nav#navbar { padding: 16px 20px; }
       .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
-      .her-photos { grid-template-columns: 1fr; }
-      .photo-card:nth-child(1) { height: 250px; }
-      .photo-card:nth-child(2) { height: 200px; }
-      .photo-card:nth-child(3) { height: 200px; }
       .dress-code { padding: 24px; }
-      .radio-group { flex-direction: column; }
+      .details-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .schedule-line { gap: 8px; }
+      .schedule-item { padding: 0 clamp(12px, 3vw, 28px); }
+      .gifts-row { padding: 16px 20px; flex-direction: column; align-items: flex-start; gap: 4px; }
     }
 
     /* ============================================================
@@ -1439,25 +1070,22 @@
       .cursor, .cursor-ring { display: none; }
     }
 
-
     /* ============================================================
        MOBILE FULLSCREEN MENU OVERLAY
-       Lives OUTSIDE <nav> so position:fixed works perfectly
     ============================================================ */
     #menuOverlay {
       position: fixed;
-      inset: 0;                        /* top/right/bottom/left: 0 */
+      inset: 0;
       width: 100vw;
       height: 100vh;
-      height: 100dvh;                  /* dynamic viewport for mobile browsers */
+      height: 100dvh;
       background: #0a0808;
-      z-index: 200;                    /* above everything */
+      z-index: 200;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      /* Hidden by default */
       opacity: 0;
       pointer-events: none;
       transform: translateY(-12px);
@@ -1509,17 +1137,10 @@
     #menuOverlay.open #menuList li:nth-child(1) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.06s; }
     #menuOverlay.open #menuList li:nth-child(2) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.14s; }
     #menuOverlay.open #menuList li:nth-child(3) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.22s; }
-    #menuOverlay.open #menuList li:nth-child(4) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.30s; }
-    #menuOverlay.open #menuList li:nth-child(5) a { opacity: 0.75; transform: translateY(0); transition-delay: 0.38s; }
     #menuList a:hover { opacity: 1 !important; color: var(--gold); }
 
-    /* Gold hairline separator between items */
-    #menuList li + li {
-      border-top: 1px solid rgba(201,168,76,0.12);
-    }
+    #menuList li + li { border-top: 1px solid rgba(201,168,76,0.12); }
 
-    /* Close X button in overlay top-right */
-    /* Close button inside the overlay */
     #menuClose {
       position: absolute;
       top: 24px;
@@ -1557,7 +1178,6 @@
     #menuClose span:nth-child(2) { transform: rotate(-45deg); }
     #menuClose:hover span { background: var(--gold); }
 
-    /* Only show overlay controls on mobile */
     @media (min-width: 901px) {
       #menuOverlay { display: none !important; }
     }
@@ -1574,8 +1194,6 @@
       <span></span>
     </button>
     <ul id="menuList">
-      <li><a href="#her">Kayleigh</a></li>
-      <li><a href="#his">Estian</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#rsvp">RSVP</a></li>
@@ -1592,8 +1210,6 @@
   <nav id="navbar">
     <div class="nav-logo">Kayleigh & Estian</div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#her">Kayleigh</a></li>
-      <li><a href="#his">Estian</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#rsvp">RSVP</a></li>
@@ -1610,7 +1226,7 @@
     <div class="hero-bg"></div>
     <div class="particles" id="particles"></div>
 
-    <p class="hero-eyebrow">Together in perfect chaos</p>
+    <p class="hero-eyebrow">Welcome to the wedding of</p>
 
     <div class="hero-names">
       <span class="hero-name">Kayleigh</span>
@@ -1618,13 +1234,12 @@
       <span class="hero-name">Estian</span>
     </div>
 
-    <p class="hero-date">05 April 2026 &nbsp;·&nbsp; Pretoria, South Africa</p>
+    <p class="hero-date">21 August 2026 &nbsp;·&nbsp; Pretoria, South Africa</p>
 
     <div class="hero-divider"></div>
 
     <p class="hero-tagline">
-      Where the shutter meets the stage,<br/>
-      and love makes the loudest sound.
+      With full hearts, we invite you to share<br/>in one of the most meaningful days of our lives.
     </p>
 
     <div class="countdown" id="countdown">
@@ -1652,183 +1267,6 @@
     <div class="scroll-hint">
       <span>Scroll</span>
       <div class="scroll-arrow"></div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       HER SECTION — KAYLEIGH THE PHOTOGRAPHER
-  ============================================================ -->
-  <section id="her">
-    <div class="grain"></div>
-    <div class="her-inner">
-
-      <div class="her-text">
-        <span class="section-label">Kayleigh</span>
-
-        <svg class="camera-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 4L10 8H4C2.9 8 2 8.9 2 10V26C2 27.1 2.9 28 4 28H28C29.1 28 30 27.1 30 26V10C30 8.9 29.1 8 28 8H22L20 4H12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="16" cy="18" r="6" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="16" cy="18" r="3" fill="currentColor" opacity="0.3"/>
-        </svg>
-
-        <h2 class="her-title reveal reveal-left">
-          <span>Kayleigh</span><br/>
-          the one<br/>who sees<br/>beauty<br/>everywhere
-        </h2>
-
-        <p class="her-story reveal delay-1">
-          Kayleigh grew up with a disposable camera glued to her hands, turning ordinary Sunday afternoons into golden-hour adventures. By twenty, she was shooting weddings across the Eastern Cape, chasing light into abandoned farmhouses, and developing film in a bathroom she converted into a darkroom.
-        </p>
-        <p class="her-story reveal delay-2">
-          Her photographs don't just document moments — they breathe. Every frame is a love letter to whatever stood still long enough to be seen. It was at one of those weddings that she first spotted a certain dark-haired guitarist who most definitely did not stand still.
-        </p>
-
-        <div class="her-badge reveal delay-3">Documentary & Fine Art Photography</div>
-      </div>
-
-      <div class="her-photos reveal-right">
-        <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=600&q=80" alt="Kayleigh — behind the lens" loading="lazy" />
-        </div>
-        <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&q=80" alt="Kayleigh's camera" loading="lazy" />
-        </div>
-        <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&q=80" alt="Golden hour photography" loading="lazy" />
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============================================================
-       HIS SECTION — ESTAIN THE METALHEAD
-  ============================================================ -->
-  <section id="his">
-
-    <div class="his-inner">
-
-      <!-- IMAGE GRID — 3 cards, each with a unique hover animation -->
-      <div class="his-grid-wrap reveal-left">
-        <div class="sparks" id="sparks"></div>
-
-        <!-- Card 1: Glitch sweep -->
-        <div class="his-card his-card--glitch">
-          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=700&q=80"
-               alt="Estian on stage" loading="lazy" />
-          <div class="his-card-overlay"></div>
-          <span class="his-image-tag">★ Live in Concert ★</span>
-        </div>
-
-        <!-- Card 2: Red burn zoom -->
-        <div class="his-card his-card--burn">
-          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=700&q=80"
-               alt="No Closure on stage" loading="lazy" />
-          <div class="his-card-overlay"></div>
-          <span class="his-image-tag">★ No Closure ★</span>
-        </div>
-
-        <!-- Card 3: Diagonal wipe reveal -->
-        <div class="his-card his-card--wipe">
-          <img src="https://images.unsplash.com/photo-1598387993441-a364f854cfdd?w=700&q=80"
-               alt="Backstage vibes" loading="lazy" />
-          <div class="his-card-overlay"></div>
-          <span class="his-image-tag">★ Backstage ★</span>
-        </div>
-
-      </div>
-
-      <div class="his-text">
-        <span class="section-label" style="color:var(--electric)">Estian</span>
-
-        <h2 class="his-title reveal">
-          <span class="fire">Estian</span><br/>
-          The Man.<br/>The Myth.<br/>The Riff.
-        </h2>
-
-        <p class="his-story reveal delay-1">
-          Estian picked up his first guitar at eleven, immediately broke a string, and considered it a sign from the music gods that he was meant for something heavier. By seventeen he was fronting <em>No Closure</em> — three sweaty teenagers in a garage, playing riffs loud enough to rattle the neighbour's security gate.
-        </p>
-        <p class="his-story reveal delay-2">
-          Two decades, four albums, and countless broken eardrums later, Estian still plays every show like it's the last one on earth. Off stage, he's surprisingly gentle — a man who cries at nature documentaries, bakes sourdough obsessively, and fell completely apart the moment a certain photographer pointed a camera at him from the back of the crowd.
-        </p>
-
-        <div class="genre-tags reveal delay-3">
-          <span class="tag">Hardcore</span>
-          <span class="tag">Metal Core</span>
-        </div>
-
-        <!-- Song card -->
-        <div class="song-card reveal delay-3">
-          <div class="song-vinyl">
-            <div class="vinyl-ring"></div>
-            <div class="vinyl-dot"></div>
-          </div>
-          <div class="song-info">
-            <span class="song-label">Featured Track</span>
-            <p class="song-title">Cooki3 <span class="song-mix">(Original Mix)</span></p>
-            <p class="song-artist">Estian Smith</p>
-          </div>
-          <div class="song-bars">
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-        </div>
-
-        <div class="band-logo reveal delay-4">⚡ NO CLOSURE ⚡</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============================================================
-       ADVENTURE TIME SECTION
-  ============================================================ -->
-  <section id="at">
-    <!-- Background atmosphere -->
-    <div class="at-cloud" style="width:300px;height:120px;top:10%;left:-50px;"></div>
-    <div class="at-cloud" style="width:200px;height:80px;top:30%;right:-30px;"></div>
-    <div class="at-cloud" style="width:250px;height:100px;bottom:15%;left:20%;"></div>
-
-    <!-- Twinkling stars -->
-    <div class="at-star" style="top:8%;left:12%;animation-delay:0.3s">✦</div>
-    <div class="at-star" style="top:15%;right:18%;animation-delay:0.8s">★</div>
-    <div class="at-star" style="top:35%;left:8%;animation-delay:1.2s">✦</div>
-    <div class="at-star" style="bottom:20%;right:12%;animation-delay:0.5s">✦</div>
-    <div class="at-star" style="bottom:35%;left:55%;animation-delay:1.5s">★</div>
-
-    <div class="at-inner">
-      <p class="at-eyebrow reveal">Mathematical!</p>
-      <h2 class="at-title reveal delay-1">Adventure Time:<br/>The Wedding Episode</h2>
-      <p class="at-subtitle reveal delay-2">What time is it? Wedding time! 🎉</p>
-
-      <div class="at-scene reveal delay-2">
-        <div class="at-canvas">
-          <img
-            src="https://wallpapercave.com/wp/wp843312.jpg"
-            alt="Adventure Time — Finn and Jake in the Land of Ooo"
-            loading="lazy"
-            onerror="this.src='https://wallpapercave.com/wp/80LHENp.jpg'"
-          />
-          <div class="at-canvas-caption">
-            ✦ &nbsp;"Mathematical! They&#39;re getting MARRIED!" — Jake the Dog &nbsp;✦
-          </div>
-        </div>
-      </div><!-- /at-scene -->
-
-      <div class="at-hearts reveal delay-3">
-        <span class="heart-icon">💛</span>
-        <span class="heart-icon">🧡</span>
-        <span class="heart-icon">❤️</span>
-        <span class="heart-icon">🧡</span>
-        <span class="heart-icon">💛</span>
-      </div>
-
-      <p class="at-story reveal delay-4">
-        In another universe — one that might just be the Land of Ooo — <strong>Kayleigh the Adventurer</strong> with her enchanted camera would stumble across <strong>Estian the Metal Knight</strong> playing a solo so face-melting it shook the Candy Kingdom's foundation. Finn and Jake would totally approve. BMO would film the whole thing. The Ice King would cry.
-        <br/><br/>
-        Some loves are just <strong>Mathematical</strong>. This is one of them.
-      </p>
-
     </div>
   </section>
 
@@ -1893,63 +1331,65 @@
   <section id="details">
     <div class="details-inner">
       <p class="details-eyebrow reveal">You are warmly invited</p>
-      <h2 class="details-title reveal delay-1">The Wedding of<br/><em>Kayleigh & Estian</em></h2>
+      <h2 class="details-title reveal delay-1">Join us on<br/><em>21 August 2026</em></h2>
       <div class="gold-divider reveal delay-2"></div>
-      <p class="reveal delay-2" style="font-family:var(--font-serif);font-style:italic;font-size:1.1rem;color:rgba(245,237,224,0.55);line-height:1.7;max-width:560px;margin:0 auto;">
-        Two worlds collide in the most beautiful way. Please join us as we celebrate love in all its forms — tender, loud, artistic, and absolutely Mathematical.
+      <p class="reveal delay-2" style="font-family:var(--font-serif);font-style:italic;font-size:1.1rem;color:rgba(245,237,224,0.55);line-height:1.75;max-width:520px;margin:0 auto;">
+        At DeHarte Venue in Pretoria, as we celebrate love, commitment, and the beginning of our forever.
       </p>
 
-      <div class="details-grid">
+      <div class="details-grid" style="grid-template-columns: repeat(2,1fr); max-width: 720px; margin: 52px auto 0;">
 
         <div class="detail-card reveal delay-1">
           <span class="detail-icon">📅</span>
           <span class="detail-label">Date</span>
-          <p class="detail-main">Sunday, 05 April</p>
+          <p class="detail-main">Friday, 21 August</p>
           <p class="detail-sub">2026</p>
         </div>
 
         <div class="detail-card reveal delay-2">
-          <span class="detail-icon">🕔</span>
-          <span class="detail-label">Time</span>
-          <p class="detail-main">4:00 PM</p>
-          <p class="detail-sub">Ceremony begins promptly.<br/>Cocktails to follow at 5:30 PM</p>
-        </div>
-
-        <div class="detail-card reveal delay-3">
           <span class="detail-icon">📍</span>
-          <span class="detail-label">Ceremony Venue</span>
-          <p class="detail-main">The Old Stone Chapel</p>
-          <p class="detail-sub">Pretoria, South Africa</p>
-        </div>
-
-        <div class="detail-card reveal delay-2">
-          <span class="detail-icon">🥂</span>
-          <span class="detail-label">Reception</span>
-          <p class="detail-main">Reception Venue, Pretoria</p>
-          <p class="detail-sub">20 minutes from the chapel.<br/>Shuttle service provided.</p>
+          <span class="detail-label">Venue</span>
+          <p class="detail-main">DeHarte Venue</p>
+          <p class="detail-sub">206 Rentia St, Onderstepoort<br/>Pretoria, 0110</p>
         </div>
 
         <div class="detail-card reveal delay-3">
-          <span class="detail-icon">🏨</span>
-          <span class="detail-label">Accommodation</span>
-          <p class="detail-main">Room Block Reserved</p>
-          <p class="detail-sub">Pretoria Boutique Hotel<br/>Use code: KAYLEIGHESTAIN26</p>
+          <span class="detail-icon">🕐</span>
+          <span class="detail-label">Arrival</span>
+          <p class="detail-main">Please arrive at 13:00</p>
+          <p class="detail-sub">Arrive promptly so you<br/>don't miss a moment</p>
         </div>
 
         <div class="detail-card reveal delay-4">
-          <span class="detail-icon">🎶</span>
-          <span class="detail-label">Music</span>
-          <p class="detail-main">Live Band + DJ</p>
-          <p class="detail-sub">Ceremony: String Quartet<br/>Reception: Iron Meridian plays at 9PM 🤘</p>
+          <span class="detail-icon">🖤</span>
+          <span class="detail-label">Dress Code</span>
+          <p class="detail-main">Strictly All Black</p>
+          <p class="detail-sub">Timeless, elegant, and a<br/>little bit dramatic — just how we like it</p>
         </div>
 
       </div>
 
-      <div class="dress-code reveal delay-2">
-        <h3 class="dress-title">Dress Code: Elegant Chaos</h3>
-        <p class="dress-text">
-          We love you however you show up — but if you want direction: think <strong>dark florals, velvet, jewel tones</strong>, or even tasteful black-tie with a little edge. There is no wrong answer here except beige. <em>Never beige.</em> If you own a leather jacket and a tiara, tonight is your night. The couple will be in black, gold, and an undisclosed amount of sequins.
-        </p>
+      <!-- Schedule of the Day -->
+      <div class="schedule-strip reveal delay-3">
+        <span class="schedule-label">Schedule of the Day</span>
+        <div class="schedule-line">
+          <div class="schedule-item">
+            <span class="schedule-time">13:00</span>
+            <span class="schedule-name">Arrival</span>
+          </div>
+          <div class="schedule-item">
+            <span class="schedule-time">14:00</span>
+            <span class="schedule-name">Ceremony</span>
+          </div>
+          <div class="schedule-item">
+            <span class="schedule-time">15:00</span>
+            <span class="schedule-name">Canapés</span>
+          </div>
+          <div class="schedule-item">
+            <span class="schedule-time">16:30</span>
+            <span class="schedule-name">Reception</span>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1965,78 +1405,122 @@
         <h2 class="rsvp-title reveal delay-1">Will you<br/><em>join us?</em></h2>
         <div class="gold-divider reveal delay-2"></div>
         <p class="rsvp-subtitle reveal delay-2">
-          We would be absolutely delighted to share this day with you. Please let us know by filling in the form below so we can make sure your place at the table is ready and waiting.
+          Please let us know if you'll be joining us by completing the form below.
         </p>
-        <p class="rsvp-deadline reveal delay-3">RSVP by September 1st, 2026</p>
       </div>
 
-      <form class="rsvp-form reveal delay-2" id="rsvpForm">
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="firstName">First Name</label>
-            <input class="form-input" type="text" id="firstName" name="entry.XXXXXXX1" placeholder="Your first name" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="lastName">Last Name</label>
-            <input class="form-input" type="text" id="lastName" name="entry.XXXXXXX2" placeholder="Your last name" required />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="email">Email Address</label>
-          <input class="form-input" type="email" id="email" name="entry.XXXXXXX3" placeholder="you@email.com" required />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Are you attending?</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" id="yes" name="entry.XXXXXXX4" value="Joyfully accepts" checked />
-              <label class="radio-label" for="yes">Joyfully Accepts 🥂</label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" id="no" name="entry.XXXXXXX4" value="Regretfully declines" />
-              <label class="radio-label" for="no">Regretfully Declines 💌</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="guests">Number of Guests (including yourself)</label>
-          <select class="form-select" id="guests" name="entry.XXXXXXX5">
-            <option value="1">Just me</option>
-            <option value="2" selected>2 people</option>
-            <option value="3">3 people</option>
-            <option value="4">4 people</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="dietary">Dietary Requirements</label>
-          <input class="form-input" type="text" id="dietary" name="entry.XXXXXXX6" placeholder="Vegetkayleighn, gluten-free, none..." />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="song">Song Request for the Dance Floor</label>
-          <input class="form-input" type="text" id="song" name="entry.XXXXXXX7" placeholder="What track will get you on the floor?" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="message">A Note for the Couple</label>
-          <textarea class="form-textarea" id="message" name="entry.XXXXXXX8" placeholder="Leave Kayleigh & Estian a message, a memory, or your best wedding advice..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-rsvp">Send My RSVP ♥</button>
-
-      </form>
-
-      <!-- Success message shown after submission -->
-      <div class="form-success" id="formSuccess">
-        <h3>You're in! ✨</h3>
-        <p>Thank you so much. We can't wait to celebrate with you.<br/>Expect a carrier pigeon (or email) from us soon.</p>
+      <div class="rsvp-cta-box reveal delay-3">
+        <span class="rsvp-cta-icon">💌</span>
+        <a href="https://docs.google.com/forms/d/1elIW-m1HpcjXze7mH-hub061fOMW0SxTrylZAIfy9h8/viewform"
+           target="_blank" rel="noopener" class="btn-gold">
+          RSVP Here ♥
+        </a>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GETTING THERE
+  ============================================================ -->
+  <section class="info-section" id="directions"
+    style="background: linear-gradient(180deg,#0a0808 0%,#110e0e 100%); border-top:1px solid rgba(201,168,76,0.08);">
+    <div class="info-inner">
+      <div class="info-header">
+        <span class="section-label reveal" style="display:block;">Getting There</span>
+        <h2 class="info-title reveal delay-1">Finding <em>DeHarte Venue</em></h2>
+      </div>
+      <div class="directions-content reveal delay-2">
+        <div class="directions-text">
+          For the smoothest journey, we recommend taking the route through <strong>Rietfontein</strong> rather than past Soshanguve.
+        </div>
+        <div class="directions-card">
+          <p>206 Rentia St<br/>Onderstepoort, Pretoria<br/>0110</p>
+          <span>DeHarte Venue</span>
+          <div style="margin-top:24px;">
+            <a href="https://www.google.com/maps?q=206+Rentia+St,+Onderstepoort,+Pretoria,+0110"
+               target="_blank" rel="noopener" class="btn-outline">Open in Maps →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ACCOMMODATION
+  ============================================================ -->
+  <section class="info-section info-section--alt" id="accommodation"
+    style="border-top:1px solid rgba(201,168,76,0.08);">
+    <div class="info-inner">
+      <div class="info-header">
+        <span class="section-label reveal" style="display:block;">Accommodation</span>
+        <h2 class="info-title reveal delay-1">Where to <em>Rest Your Head</em></h2>
+        <p class="info-body reveal delay-2">
+          If you'd like to stay nearby, here are a couple of lovely options.
+        </p>
+      </div>
+      <div class="accom-grid reveal delay-3">
+
+        <div class="accom-card">
+          <span class="accom-num">Option 01</span>
+          <p class="accom-name">Siba's Lifestyle Lodge</p>
+          <p class="accom-desc">A peaceful lifestyle lodge close to the venue — a lovely option for a comfortable overnight stay.</p>
+          <a href="http://sibaslifestylelodge.co.za/" target="_blank" rel="noopener" class="btn-outline">Visit Website →</a>
+        </div>
+
+        <div class="accom-card">
+          <span class="accom-num">Option 02</span>
+          <p class="accom-name">Nearby Guesthouse</p>
+          <p class="accom-desc">A charming option in the area — browse and book directly for the most up-to-date availability.</p>
+          <a href="https://www.booking.com/Share-Bi3G9f" target="_blank" rel="noopener" class="btn-outline">View on Booking.com →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GIFTS
+  ============================================================ -->
+  <section class="info-section" id="gifts"
+    style="background: #070505; border-top:1px solid rgba(201,168,76,0.08);">
+    <div class="info-inner" style="max-width:580px;">
+      <div class="info-header">
+        <span class="section-label reveal" style="display:block;">Gifts</span>
+        <h2 class="info-title reveal delay-1">Your Presence is <em>Everything</em></h2>
+        <p class="info-body reveal delay-2">
+          Your presence on our day is truly the greatest gift we could ask for. However, if you would like to contribute to our honeymoon, we have included our banking details below.
+        </p>
+      </div>
+      <div class="gifts-table reveal delay-3">
+        <div class="gifts-row">
+          <span class="gifts-key">Bank</span>
+          <span class="gifts-val">ABSA Centurion</span>
+        </div>
+        <div class="gifts-row">
+          <span class="gifts-key">Account Holder</span>
+          <span class="gifts-val">K. Mocke</span>
+        </div>
+        <div class="gifts-row">
+          <span class="gifts-key">Branch Code</span>
+          <span class="gifts-val">630445</span>
+        </div>
+        <div class="gifts-row">
+          <span class="gifts-key">Account Type</span>
+          <span class="gifts-val">Savings Account</span>
+        </div>
+        <div class="gifts-row">
+          <span class="gifts-key">Account Number</span>
+          <span class="gifts-val">9286966281</span>
+        </div>
+        <div class="gifts-row">
+          <span class="gifts-key">Reference</span>
+          <span class="gifts-val">Your name</span>
+        </div>
+      </div>
+      <p class="gifts-footnote reveal delay-4">
+        Queries: <a href="mailto:kayestin3@gmail.com">kayestin3@gmail.com</a>
+      </p>
     </div>
   </section>
 
@@ -2045,21 +1529,23 @@
   ============================================================ -->
   <footer>
     <p class="footer-names">Kayleigh & Estian</p>
-    <p class="footer-date">05 April 2026 · Pretoria</p>
+    <p class="footer-date">21 August 2026 · DeHarte Venue, Pretoria</p>
     <nav class="footer-links">
-      <a href="#her">Kayleigh</a>
-      <a href="#his">Estian</a>
       <a href="#gallery">Gallery</a>
+      <a href="#details">Details</a>
       <a href="#rsvp">RSVP</a>
+      <a href="#directions">Getting There</a>
+      <a href="#accommodation">Stay</a>
+      <a href="#gifts">Gifts</a>
     </nav>
-    <p class="footer-copy">Made with ♥ and a healthy amount of distortion pedal.</p>
+    <p class="footer-copy">Thank you for being part of this moment with us — it means more than we can say. We can't wait to celebrate with you. ♥</p>
   </footer>
 
   <!-- ============================================================
        JAVASCRIPT
   ============================================================ -->
   <script>
-    /* ---- Custom cursor — GPU-composited via transform, never left/top ---- */
+    /* ---- Custom cursor ---- */
     const cursor     = document.getElementById('cursor');
     const cursorRing = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -2075,8 +1561,7 @@
     }
     animateCursor();
 
-    /* Event delegation instead of per-element listeners */
-    const cursorTargetSelector = 'a, button, .tag, .photo-card, .gal-item, .detail-card';
+    const cursorTargetSelector = 'a, button, .tag, .gal-item, .detail-card';
     document.addEventListener('mouseover', e => {
       if (e.target.closest(cursorTargetSelector)) {
         cursor.style.width  = '24px';
@@ -2113,25 +1598,6 @@
     }
     particleContainer.appendChild(pFrag);
 
-    /* ---- Sparks ---- */
-    const sparksContainer = document.getElementById('sparks');
-    if (sparksContainer) {
-      const sFrag = document.createDocumentFragment();
-      for (let i = 0; i < 12; i++) {
-        const s = document.createElement('div');
-        s.className = 'spark';
-        s.style.cssText = `
-          left: ${Math.random()*100}%;
-          animation-duration: ${2 + Math.random()*3}s;
-          animation-delay: ${Math.random()*4}s;
-          height: ${10 + Math.random()*20}px;
-          background: linear-gradient(to bottom, ${Math.random()>0.5?'var(--electric)':'var(--neon)'}, transparent);
-        `;
-        sFrag.appendChild(s);
-      }
-      sparksContainer.appendChild(sFrag);
-    }
-
     /* ---- Scroll reveal ---- */
     const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
     const observer = new IntersectionObserver((entries) => {
@@ -2139,9 +1605,9 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
-    /* ---- Navbar scroll + Parallax — single merged passive listener with RAF tick ---- */
+    /* ---- Navbar scroll ---- */
     const navbar = document.getElementById('navbar');
-    const heroBg = document.querySelector('.hero-bg'); /* cached once outside handler */
+    const heroBg = document.querySelector('.hero-bg');
     let scrollTicking = false;
 
     function onScrollTick() {
@@ -2160,8 +1626,7 @@
 
     /* ---- Mobile menu ---- */
     const hamburger   = document.getElementById('hamburger');
-    const navLinks    = document.getElementById('navLinks');   /* desktop list */
-    const menuOverlay = document.getElementById('menuOverlay');/* mobile overlay */
+    const menuOverlay = document.getElementById('menuOverlay');
 
     function openMenu() {
       menuOverlay.classList.add('open');
@@ -2180,18 +1645,11 @@
       menuOverlay.classList.contains('open') ? closeMenu() : openMenu();
     });
 
-    /* Close button inside overlay */
     document.getElementById('menuClose').addEventListener('click', closeMenu);
-
-    /* Close when any overlay link is clicked */
-    document.querySelectorAll('#menuList a').forEach(a =>
-      a.addEventListener('click', closeMenu)
-    );
-
-    /* Close on Escape key */
+    document.querySelectorAll('#menuList a').forEach(a => a.addEventListener('click', closeMenu));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
-    /* ---- Menu canvas particles — batched fillStyle by color ---- */
+    /* ---- Menu canvas particles ---- */
     const menuCanvas = document.getElementById('menuCanvas');
     const mCtx = menuCanvas.getContext('2d');
     let mW = 0, mH = 0, menuAnimId = null;
@@ -2218,7 +1676,6 @@
       };
     }
 
-    /* Pre-seed particles at random heights */
     resizeMenuCanvas();
     for (let i = 0; i < 70; i++) {
       const p = spawnMP();
@@ -2231,7 +1688,6 @@
       if (!menuOverlay.classList.contains('open')) { menuAnimId = null; return; }
       mCtx.clearRect(0, 0, mW, mH);
 
-      /* Sort into two colour buckets to minimise fillStyle switches */
       const gold  = [];
       const blush = [];
       for (let i = 0; i < mParticles.length; i++) {
@@ -2265,7 +1721,7 @@
 
     /* ---- Countdown ---- */
     function updateCountdown() {
-      const wedding = new Date('2026-04-05T16:00:00');
+      const wedding = new Date('2026-08-21T13:00:00');
       const now     = new Date();
       let diff = wedding - now;
       if (diff < 0) {
@@ -2283,64 +1739,6 @@
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
-
-    /* ---- RSVP Form → Google Forms ---- */
-    /*
-      HOW TO LINK TO GOOGLE FORMS:
-      1. Create your Google Form at forms.google.com
-      2. Click the 3-dot menu → "Get pre-filled link"
-      3. Fill each field and click "Get Link"
-      4. From the URL, copy the "entry.XXXXXXX" numbers for each field
-      5. Replace the placeholder entry.XXXXXXX values in the form fields above
-      6. Update GOOGLE_FORM_ACTION_URL below with your form's action URL
-         (Get it by right-clicking "Submit" in the form preview → inspect → find the <form action="">)
-    */
-    const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse';
-
-    const rsvpForm    = document.getElementById('rsvpForm');
-    const formSuccess = document.getElementById('formSuccess');
-
-    rsvpForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = new FormData(rsvpForm);
-
-      try {
-        // Google Forms doesn't allow CORS fetch; we use a hidden iframe trick
-        const iframe = document.createElement('iframe');
-        iframe.name = 'hidden_iframe';
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-
-        const tempForm = document.createElement('form');
-        tempForm.action = GOOGLE_FORM_ACTION_URL;
-        tempForm.method = 'POST';
-        tempForm.target = 'hidden_iframe';
-
-        data.forEach((value, key) => {
-          const input = document.createElement('input');
-          input.type  = 'hidden';
-          input.name  = key;
-          input.value = value;
-          tempForm.appendChild(input);
-        });
-
-        document.body.appendChild(tempForm);
-        tempForm.submit();
-
-        // Show success after a short delay
-        setTimeout(() => {
-          rsvpForm.style.display    = 'none';
-          formSuccess.classList.add('show');
-          document.body.removeChild(tempForm);
-          document.body.removeChild(iframe);
-        }, 800);
-
-      } catch (err) {
-        // Fallback — still show success (form usually submits fine despite CORS error in console)
-        rsvpForm.style.display    = 'none';
-        formSuccess.classList.add('show');
-      }
-    });
 
   </script>
 </body>
