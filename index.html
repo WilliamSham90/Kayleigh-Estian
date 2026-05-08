@@ -112,7 +112,8 @@
       width: 4px; height: 4px;
       background: var(--wine);
       border-radius: 50%;
-      transition: width .2s var(--ease-out), height .2s var(--ease-out), opacity .25s;
+      transition: width .2s var(--ease-out), height .2s var(--ease-out),
+                  background .25s, opacity .25s;
       opacity: 0;
     }
     body.cursor-ready { cursor: none; }
@@ -132,6 +133,25 @@
       border-color: var(--wine);
     }
     body.cursor-text .cursor-dot { opacity: 0; }
+
+    /* ---- Dark-section cursor overrides ---- */
+    body.cursor-on-dark .cursor-ring {
+      border-color: rgba(255,255,255,0.75);
+      mix-blend-mode: normal;
+    }
+    body.cursor-on-dark .cursor-dot {
+      background: rgba(255,255,255,0.9);
+      mix-blend-mode: normal;
+    }
+    body.cursor-on-dark.cursor-hover .cursor-ring {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.75);
+    }
+    body.cursor-on-dark.cursor-text .cursor-ring {
+      background: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.9);
+    }
+
     @media (hover: none), (pointer: coarse) {
       .cursor-ring, .cursor-dot { display: none !important; }
     }
@@ -1661,19 +1681,21 @@
           </span>
           <p>206 Rentia Street<br/>Onderstepoort, Pretoria<br/>0110</p>
           <span class="venue-name">DeHarte Venue</span>
-          <a href="https://www.google.com/maps?q=206+Rentia+St,+Onderstepoort,+Pretoria,+0110"
+          <!-- ✅ UPDATED map link -->
+          <a href="https://maps.app.goo.gl/vM1LkQ1pNc3iVZ599"
              target="_blank" rel="noopener" class="btn-outline">Open in Maps →</a>
         </div>
 
         <div class="map-frame">
           <iframe
-            src="https://www.google.com/maps?q=206+Rentia+St,+Onderstepoort,+Pretoria,+0110&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3597.8575427862534!2d28.1797514!3d-25.6096496!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ebfdb7ea9c09663%3A0xc0bba0e88eed3e28!2sDe%20harte%20Venue%20205!5e0!3m2!1sen!2sza!4v1778225245801!5m2!1sen!2sza"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             title="Map showing DeHarte Venue, 206 Rentia Street, Onderstepoort, Pretoria"
             allowfullscreen></iframe>
+          <!-- ✅ UPDATED directions CTA link -->
           <a class="map-cta"
-             href="https://www.google.com/maps/dir/?api=1&destination=206+Rentia+St,+Onderstepoort,+Pretoria,+0110"
+             href="https://maps.app.goo.gl/vM1LkQ1pNc3iVZ599"
              target="_blank" rel="noopener">
             Get directions
             <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
@@ -1766,8 +1788,9 @@
           <span class="gifts-val">Your name</span>
         </div>
       </div>
+      <!-- ✅ UPDATED email address -->
       <p class="gifts-footnote reveal delay-2">
-        Queries: <a href="mailto:kayleighmocke@gmail.com">kayleighmocke@gmail.com</a>
+        Queries: <a href="mailto:kayestin3@gmail.com">kayestin3@gmail.com</a>
       </p>
     </div>
   </section>
@@ -1931,30 +1954,66 @@
     (function () {
       const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
       if (isCoarse) return;
+
       const ring = document.getElementById('cursorRing');
-      const dot = document.getElementById('cursorDot');
+      const dot  = document.getElementById('cursorDot');
       let rx = window.innerWidth / 2, ry = window.innerHeight / 2;
       let tx = rx, ty = ry;
+
+      /* Dark sections — cursor turns white when over these */
+      const darkSections = document.querySelectorAll('#invitation, #rsvp, .dress-hero');
+
+      /* Last known viewport coordinates of the mouse */
+      let mouseX = -9999, mouseY = -9999;
+
+      /* Returns true when (x, y) is inside any dark section */
+      function isDarkPoint(x, y) {
+        for (const el of darkSections) {
+          const r = el.getBoundingClientRect();
+          if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return true;
+        }
+        return false;
+      }
+
+      /* Shared helper — call whenever position or scroll changes */
+      function updateDarkState() {
+        document.body.classList.toggle('cursor-on-dark', isDarkPoint(mouseX, mouseY));
+      }
 
       function loop() {
         rx += (tx - rx) * 0.18;
         ry += (ty - ry) * 0.18;
         ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-        dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%, -50%)`;
+        dot.style.transform  = `translate(${tx}px, ${ty}px) translate(-50%, -50%)`;
         requestAnimationFrame(loop);
       }
+
       window.addEventListener('mousemove', (e) => {
-        tx = e.clientX; ty = e.clientY;
+        tx = e.clientX;
+        ty = e.clientY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
         if (!document.body.classList.contains('cursor-ready')) {
           document.body.classList.add('cursor-ready');
         }
+
+        updateDarkState();
       }, { passive: true });
+
+      /* Re-evaluate on scroll — getBoundingClientRect shifts as page moves */
+      window.addEventListener('scroll', () => {
+        updateDarkState();
+      }, { passive: true });
+
       window.addEventListener('mouseleave', () => {
-        document.body.classList.remove('cursor-ready');
+        document.body.classList.remove('cursor-ready', 'cursor-on-dark');
       });
+
       window.addEventListener('mouseenter', () => {
         document.body.classList.add('cursor-ready');
       });
+
       const hoverSel = 'a, button, .gal-item, .accom-card, input, textarea, select, label, [role="button"]';
       document.addEventListener('mouseover', (e) => {
         const t = e.target.closest ? e.target.closest(hoverSel) : null;
@@ -1974,6 +2033,7 @@
           document.body.classList.remove('cursor-hover', 'cursor-text');
         }
       });
+
       requestAnimationFrame(loop);
     })();
   </script>
