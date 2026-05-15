@@ -482,19 +482,21 @@
     }
 
     /* ============================================================
-       INVITATION
+       INVITATION  (white section)
     ============================================================ */
     #invitation {
       padding: var(--pad-y) 0;
-      background: var(--ink-2);
-      color: var(--paper);
+      background: #FFFFFF;
+      color: var(--ink);
       position: relative;
       overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
     #invitation::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 30% 40%, rgba(133,51,49,0.1) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 50% at 30% 40%, rgba(133,51,49,0.04) 0%, transparent 70%);
       pointer-events: none;
     }
     .invitation-inner {
@@ -512,32 +514,35 @@
       .invitation-inner { grid-template-columns: 1fr; gap: 36px; }
     }
     .invitation-text .section-eyebrow { color: var(--wine); }
-    .invitation-text .section-title { color: var(--paper); }
+    .invitation-text .section-title { color: var(--ink); }
     .invitation-text .section-title em { color: var(--wine); }
-    .invitation-text .section-rule { background: rgba(244,242,237,0.2); margin-left: 0; }
-    .invitation-text .section-rule::before { background: var(--wine); }
+    .invitation-text .section-rule { background: var(--wine); margin-left: 0; }
     .invitation-text .section-head { text-align: left; }
     .invitation-body {
       font-family: var(--font-serif);
       font-style: italic;
       font-size: 1.05rem;
       line-height: 1.8;
-      color: rgba(244,242,237,0.78);
+      color: var(--ink-70);
       max-width: 44ch;
       margin-top: 24px;
     }
     .invitation-image {
       position: relative;
-      aspect-ratio: 3/4;
-      border: 1px solid rgba(244,242,237,0.15);
-      background: #0E0E0E;
-      box-shadow: 0 30px 60px -30px rgba(0,0,0,0.5);
+      aspect-ratio: 1/1;
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+      box-shadow: 0 30px 60px -30px rgba(27,27,27,0.18);
       overflow: hidden;
+      padding: clamp(28px, 5vw, 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .invitation-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
     }
 
@@ -1264,8 +1269,54 @@
       text-align: center;
       margin-top: 24px;
     }
-    .gifts-footnote a { color: var(--wine); text-decoration: none; border-bottom: 1px solid var(--wine-line); transition: border-color .3s; }
-    .gifts-footnote a:hover { border-color: var(--wine); }
+    /* ============================================================
+       GIFTS (dark variant — splits it from the gallery below)
+    ============================================================ */
+    #gifts {
+      background: var(--ink-2);
+      color: var(--paper);
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    #gifts::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--wine), transparent);
+      z-index: 2;
+    }
+    #gifts::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(133,51,49,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #gifts .info-inner { position: relative; z-index: 1; }
+    #gifts .section-title { color: var(--paper); }
+    #gifts .section-title em { color: var(--wine); }
+    #gifts .section-rule { background: rgba(244,242,237,0.25); }
+    #gifts .section-lead { color: rgba(244,242,237,0.78); }
+    #gifts .gifts-table {
+      border: 1px solid rgba(244,242,237,0.18);
+      background: rgba(255,255,255,0.025);
+      backdrop-filter: blur(2px);
+    }
+    #gifts .gifts-row {
+      border-bottom: 1px solid rgba(244,242,237,0.1);
+    }
+    #gifts .gifts-row:last-child { border-bottom: none; }
+    #gifts .gifts-key { color: rgba(244,242,237,0.5); }
+    #gifts .gifts-val { color: var(--paper); }
+    #gifts .gifts-footnote { color: rgba(244,242,237,0.62); }
+    #gifts .gifts-footnote a {
+      color: var(--paper);
+      border-bottom: 1px solid var(--wine);
+    }
+    #gifts .gifts-footnote a:hover { border-bottom-color: var(--paper); }
 
     /* ============================================================
        FOOTER
@@ -1379,12 +1430,12 @@
   <nav id="navbar">
     <a href="#hero" class="nav-logo">Kayleigh<span class="amp">&amp;</span>Estian</a>
     <ul class="nav-links">
-      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#directions">Directions</a></li>
       <li><a href="#accommodation">Stay</a></li>
       <li><a href="#gifts">Gifts</a></li>
       <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#gallery">Gallery</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">
       <span></span><span></span><span></span>
@@ -1396,12 +1447,12 @@
   =========================== -->
   <div id="menuOverlay" role="dialog" aria-modal="true" aria-label="Site navigation">
     <ul id="menuList">
-      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#directions">Directions</a></li>
       <li><a href="#accommodation">Stay</a></li>
       <li><a href="#gifts">Gifts</a></li>
       <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#gallery">Gallery</a></li>
     </ul>
     <p class="menu-foot">21 · 08 · 2026</p>
   </div>
@@ -1469,96 +1520,40 @@
         </p>
       </div>
       <div class="invitation-image reveal delay-1">
-        <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Invite.jpeg"
-             alt="Wedding invitation card" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        <!-- data-img: filename relative to IMAGE_BASE — resolved by JS below -->
+        <img data-img="Hands of love.png" alt="Two swallows holding hearts above clasped hands — wedding emblem" />
       </div>
     </div>
   </section>
 
   <!-- ===========================
-       GALLERY
+       RSVP  (moved up — sits directly after the invitation)
   =========================== -->
-  <section id="gallery" data-screen-label="03 Gallery">
-    <div class="container">
+  <section id="rsvp" data-screen-label="03 RSVP">
+    <div class="rsvp-inner">
       <header class="section-head reveal">
-        <span class="section-eyebrow">Our favourite moments</span>
-        <h2 class="section-title">Us, <em>unfiltered</em></h2>
+        <span class="section-eyebrow">Reserve your seat</span>
+        <h2 class="section-title">Will you <em>join us?</em></h2>
         <div class="section-rule"></div>
       </header>
 
-      <div class="gallery-grid" id="galleryGrid">
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-1.jpeg" class="gal-item reveal" data-caption="Always and forever">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-1.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Always and forever</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-2.jpeg" class="gal-item reveal delay-1" data-caption="Golden hour">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-2.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Golden hour</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-3.jpeg" class="gal-item reveal delay-2" data-caption="Just us">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-3.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Just us</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-4.jpeg" class="gal-item reveal delay-1" data-caption="Uncontrollable laughter">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-4.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Uncontrollable laughter</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-5.jpeg" class="gal-item reveal delay-2" data-caption="The night everything changed">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-5.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">The night everything changed</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-6.jpeg" class="gal-item reveal delay-3" data-caption="Sunday walks">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-6.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Sunday walks</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-7.jpeg" class="gal-item reveal delay-1" data-caption="Our favourite place">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-7.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Our favourite place</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-8.jpeg" class="gal-item reveal delay-3" data-caption="She said yes">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-8.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">She said yes</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-9.jpeg" class="gal-item reveal delay-2" data-caption="Under the stars">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-9.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Under the stars</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-10.jpeg" class="gal-item reveal delay-4" data-caption="Always">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-10.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Always</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-11.jpeg" class="gal-item reveal delay-1" data-caption="First shoot together">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-11.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">First shoot together</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-12.jpeg" class="gal-item reveal delay-2" data-caption="Backyard sessions">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-12.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Backyard sessions</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-13.jpeg" class="gal-item reveal delay-3" data-caption="Together always">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-13.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Together always</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-14.jpeg" class="gal-item reveal delay-1" data-caption="Somewhere in time">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-14.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Somewhere in time</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-15.jpeg" class="gal-item reveal delay-2" data-caption="The quiet moments">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-15.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">The quiet moments</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-16.jpeg" class="gal-item reveal delay-3" data-caption="Just the two of us">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-16.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Just the two of us</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-17.jpeg" class="gal-item reveal delay-4" data-caption="Our story">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-17.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Our story</span></div>
-        </a>
-        <a href="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-18.jpeg" class="gal-item reveal delay-5" data-caption="Forever starts here">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Gallery-image-18.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Forever starts here</span></div>
-        </a>
+      <div class="rsvp-cta-box reveal delay-1">
+        <span class="rsvp-cta-corners"></span>
+        <div class="rsvp-cta-content">
+          <span class="rsvp-emblem" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M30 50C30 50 8 36 8 22a12 12 0 0 1 22-7 12 12 0 0 1 22 7c0 14-22 28-22 28z" fill="currentColor" fill-opacity="0.15"/>
+              <path d="M30 50C30 50 8 36 8 22a12 12 0 0 1 22-7 12 12 0 0 1 22 7c0 14-22 28-22 28z"/>
+            </svg>
+          </span>
+          <p class="rsvp-cta-body">
+            Please let us know if you'll be joining us by completing the form below.
+          </p>
+          <a href="https://docs.google.com/forms/d/1elIW-m1HpcjXze7mH-hub061fOMW0SxTrylZAIfy9h8/viewform"
+             target="_blank" rel="noopener" class="btn-primary">
+            RSVP Here
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -1620,7 +1615,7 @@
           <span class="dress-hero-note">No exceptions, no substitutes</span>
         </div>
         <div class="dress-hero-image">
-          <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Dress_black.webp"
+          <img data-img="Dress_black.webp"
                alt="All-black dress code reference" style="width:100%;height:100%;object-fit:cover;display:block;" />
         </div>
       </div>
@@ -1650,41 +1645,9 @@
   </section>
 
   <!-- ===========================
-       RSVP
-  =========================== -->
-  <section id="rsvp" data-screen-label="05 RSVP">
-    <div class="rsvp-inner">
-      <header class="section-head reveal">
-        <span class="section-eyebrow">Reserve your seat</span>
-        <h2 class="section-title">Will you <em>join us?</em></h2>
-        <div class="section-rule"></div>
-      </header>
-
-      <div class="rsvp-cta-box reveal delay-1">
-        <span class="rsvp-cta-corners"></span>
-        <div class="rsvp-cta-content">
-          <span class="rsvp-emblem" aria-hidden="true">
-            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.4">
-              <path d="M30 50C30 50 8 36 8 22a12 12 0 0 1 22-7 12 12 0 0 1 22 7c0 14-22 28-22 28z" fill="currentColor" fill-opacity="0.15"/>
-              <path d="M30 50C30 50 8 36 8 22a12 12 0 0 1 22-7 12 12 0 0 1 22 7c0 14-22 28-22 28z"/>
-            </svg>
-          </span>
-          <p class="rsvp-cta-body">
-            Please let us know if you'll be joining us by completing the form below.
-          </p>
-          <a href="https://docs.google.com/forms/d/1elIW-m1HpcjXze7mH-hub061fOMW0SxTrylZAIfy9h8/viewform"
-             target="_blank" rel="noopener" class="btn-primary">
-            RSVP Here
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================
        GETTING THERE
   =========================== -->
-  <section class="info-section" id="directions" data-screen-label="06 Directions">
+  <section class="info-section" id="directions" data-screen-label="05 Directions">
     <div class="info-inner">
       <header class="section-head reveal">
         <span class="section-eyebrow">Getting there</span>
@@ -1739,19 +1702,20 @@
   <!-- ===========================
        ACCOMMODATION
   =========================== -->
-  <section class="info-section info-section--alt" id="accommodation" data-screen-label="07 Accommodation">
+  <section class="info-section info-section--alt" id="accommodation" data-screen-label="06 Accommodation">
     <div class="info-inner">
       <header class="section-head reveal">
         <span class="section-eyebrow">Accommodation</span>
         <h2 class="section-title">Where to <em>rest your head</em></h2>
         <div class="section-rule"></div>
         <p class="section-lead">If you'd like to stay nearby, here are a couple of lovely options.</p>
+        <p class="section-lead" style="margin-top: 10px;">To book accommodation in the area, kindly contact Zandelee on <a href="tel:+27837422024" style="color: var(--wine); text-decoration: none; border-bottom: 1px solid var(--wine-line); transition: border-color .3s;">+27 83 742 2024</a>.</p>
       </header>
 
       <div class="accom-grid">
         <div class="accom-card reveal">
           <div class="accom-photo">
-            <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/siba_image.png"
+            <img data-img="siba_image.png"
                  alt="Siba's Lifestyle Lodge" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
           <div class="accom-body">
@@ -1764,7 +1728,7 @@
 
         <div class="accom-card reveal delay-1">
           <div class="accom-photo">
-            <img src="https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/Booking_image.PNG"
+            <img data-img="Booking_image.PNG"
                  alt="Nearby Guesthouse" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
           <div class="accom-body">
@@ -1781,7 +1745,7 @@
   <!-- ===========================
        GIFTS
   =========================== -->
-  <section class="info-section" id="gifts" data-screen-label="08 Gifts">
+  <section class="info-section" id="gifts" data-screen-label="07 Gifts">
     <div class="info-inner" style="max-width:640px;">
       <header class="section-head reveal">
         <span class="section-eyebrow">Gifts</span>
@@ -1819,8 +1783,101 @@
         </div>
       </div>
       <p class="gifts-footnote reveal delay-2">
-        Queries: <a href="mailto:kayestin3@gmail.com">kayestin3@gmail.com</a>
+        Queries: <a href="/cdn-cgi/l/email-protection#cca7adb5a9bfb8a5a2ff8caba1ada5a0e2afa3a1"><span class="__cf_email__" data-cfemail="ee858f978b9d9a8780ddae89838f8782c08d8183">[email&#160;protected]</span></a>
       </p>
+    </div>
+  </section>
+
+  <!-- ===========================
+       GALLERY  (moved: now last section before footer)
+  =========================== -->
+  <section id="gallery" data-screen-label="08 Gallery">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="section-eyebrow">Our favourite moments</span>
+        <h2 class="section-title">Us, <em>unfiltered</em></h2>
+        <div class="section-rule"></div>
+      </header>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <!--
+          Each anchor has:
+            data-img="filename"      → resolved to IMAGE_BASE + filename for both href and <img src>
+            data-caption="..."       → lightbox caption (unchanged)
+        -->
+        <a data-img="Gallery-image-1.jpeg" class="gal-item reveal" data-caption="Always and forever">
+          <img data-img="Gallery-image-1.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Always and forever</span></div>
+        </a>
+        <a data-img="Gallery-image-2.jpeg" class="gal-item reveal delay-1" data-caption="Golden hour">
+          <img data-img="Gallery-image-2.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Golden hour</span></div>
+        </a>
+        <a data-img="Gallery-image-3.jpeg" class="gal-item reveal delay-2" data-caption="Just us">
+          <img data-img="Gallery-image-3.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Just us</span></div>
+        </a>
+        <a data-img="Gallery-image-4.jpeg" class="gal-item reveal delay-1" data-caption="Uncontrollable laughter">
+          <img data-img="Gallery-image-4.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Uncontrollable laughter</span></div>
+        </a>
+        <a data-img="Gallery-image-5.jpeg" class="gal-item reveal delay-2" data-caption="The night everything changed">
+          <img data-img="Gallery-image-5.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">The night everything changed</span></div>
+        </a>
+        <a data-img="Gallery-image-6.jpeg" class="gal-item reveal delay-3" data-caption="Sunday walks">
+          <img data-img="Gallery-image-6.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Sunday walks</span></div>
+        </a>
+        <a data-img="Gallery-image-7.jpeg" class="gal-item reveal delay-1" data-caption="Our favourite place">
+          <img data-img="Gallery-image-7.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Our favourite place</span></div>
+        </a>
+        <a data-img="Gallery-image-8.jpeg" class="gal-item reveal delay-3" data-caption="She said yes">
+          <img data-img="Gallery-image-8.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">She said yes</span></div>
+        </a>
+        <a data-img="Gallery-image-9.jpeg" class="gal-item reveal delay-2" data-caption="Under the stars">
+          <img data-img="Gallery-image-9.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Under the stars</span></div>
+        </a>
+        <a data-img="Gallery-image-10.jpeg" class="gal-item reveal delay-4" data-caption="Always">
+          <img data-img="Gallery-image-10.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Always</span></div>
+        </a>
+        <a data-img="Gallery-image-11.jpeg" class="gal-item reveal delay-1" data-caption="First shoot together">
+          <img data-img="Gallery-image-11.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">First shoot together</span></div>
+        </a>
+        <a data-img="Gallery-image-12.jpeg" class="gal-item reveal delay-2" data-caption="Backyard sessions">
+          <img data-img="Gallery-image-12.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Backyard sessions</span></div>
+        </a>
+        <a data-img="Gallery-image-13.jpeg" class="gal-item reveal delay-3" data-caption="Together always">
+          <img data-img="Gallery-image-13.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Together always</span></div>
+        </a>
+        <a data-img="Gallery-image-14.jpeg" class="gal-item reveal delay-1" data-caption="Somewhere in time">
+          <img data-img="Gallery-image-14.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Somewhere in time</span></div>
+        </a>
+        <a data-img="Gallery-image-15.jpeg" class="gal-item reveal delay-2" data-caption="The quiet moments">
+          <img data-img="Gallery-image-15.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">The quiet moments</span></div>
+        </a>
+        <a data-img="Gallery-image-16.jpeg" class="gal-item reveal delay-3" data-caption="Just the two of us">
+          <img data-img="Gallery-image-16.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Just the two of us</span></div>
+        </a>
+        <a data-img="Gallery-image-17.jpeg" class="gal-item reveal delay-4" data-caption="Our story">
+          <img data-img="Gallery-image-17.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Our story</span></div>
+        </a>
+        <a data-img="Gallery-image-18.jpeg" class="gal-item reveal delay-5" data-caption="Forever starts here">
+          <img data-img="Gallery-image-18.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">Forever starts here</span></div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1831,12 +1888,12 @@
     <p class="footer-mark">Kayleigh<span class="amp">&amp;</span>Estian</p>
     <p class="footer-date">21 August 2026 · DeHarte, Pretoria</p>
     <ul class="footer-links">
-      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#directions">Directions</a></li>
       <li><a href="#accommodation">Stay</a></li>
       <li><a href="#gifts">Gifts</a></li>
       <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#gallery">Gallery</a></li>
     </ul>
     <p class="footer-copy">Thank you for being part of this moment with us — it means more than we can say.</p>
   </footer>
@@ -1857,7 +1914,32 @@
   <!-- ===========================
        SCRIPTS
   =========================== -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ============================================================
+       IMAGE BASE URL
+       ─────────────────────────────────────────────────────────────
+       Change this ONE value if your image host ever moves.
+       Must end with a trailing slash.
+    ============================================================ */
+    const IMAGE_BASE = 'https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/';
+
+    /* Resolve every element that carries a data-img attribute.
+       - <img data-img="file.jpg">  → sets img.src
+       - <a  data-img="file.jpg">  → sets a.href (used by lightbox)        */
+    document.querySelectorAll('[data-img]').forEach(function (el) {
+      var filename = el.getAttribute('data-img');
+      if (!filename) return;
+      /* encodeURI handles spaces and other unsafe chars in filenames
+         (e.g. "Hands of love.png" → "Hands%20of%20love.png") while
+         leaving slashes and the rest of the base URL intact.        */
+      var url = encodeURI(IMAGE_BASE + filename);
+      if (el.tagName === 'IMG') {
+        el.src = url;
+      } else {
+        el.href = url;
+      }
+    });
+
     /* -------- Scroll reveal -------- */
     const revealEls = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
@@ -1944,7 +2026,7 @@
     function openLb(i) {
       lbIndex = (i + galItems.length) % galItems.length;
       const a = galItems[lbIndex];
-      lbImg.src = a.getAttribute('href');
+      lbImg.src = a.getAttribute('href');   /* href was resolved by IMAGE_BASE block above */
       lbImg.alt = a.querySelector('img')?.alt || '';
       lbCap.textContent = a.dataset.caption || '';
       lightbox.classList.add('open');
@@ -1989,7 +2071,7 @@
       let rx = window.innerWidth / 2, ry = window.innerHeight / 2;
       let tx = rx, ty = ry;
 
-      const darkSections = document.querySelectorAll('#invitation, #rsvp, .dress-hero');
+      const darkSections = document.querySelectorAll('#rsvp, #gifts, .dress-hero');
       let mouseX = -9999, mouseY = -9999;
 
       function isDarkPoint(x, y) {
