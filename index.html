@@ -45,6 +45,12 @@
       --container: 1180px;
       --pad-x: clamp(20px, 5vw, 60px);
       --pad-y: clamp(72px, 10vw, 140px);
+
+      /* ── FIX 1 ─────────────────────────────────────────────────
+         Navbar height — fallback used before JS measures the real
+         value. JS sets this on load + resize for full accuracy.
+      ──────────────────────────────────────────────────────────── */
+      --nav-h: 60px;
     }
 
     body {
@@ -303,7 +309,13 @@
       align-items: center; justify-content: center;
       position: relative;
       text-align: center;
-      padding: 120px 20px 80px;
+      /* ── FIX 2 ─────────────────────────────────────────────────
+         padding-top now = navbar height + breathing room so hero
+         content is never hidden behind the fixed nav on any device.
+         --nav-h is updated precisely by JS; 52px gives comfortable
+         clearance between nav bottom and the first hero element.
+      ──────────────────────────────────────────────────────────── */
+      padding: calc(var(--nav-h) + 52px) 20px 80px;
       overflow: hidden;
     }
     .hero-bg {
@@ -315,7 +327,14 @@
     }
     .hero-frame {
       position: absolute;
+      /* ── FIX 3 ─────────────────────────────────────────────────
+         inset sets all four sides; we then override only `top` so
+         the decorative frame (including its -7px corner brackets)
+         starts below the fixed navbar on every screen size.
+         left / right / bottom remain at clamp(20px, 4vw, 50px).
+      ──────────────────────────────────────────────────────────── */
       inset: clamp(20px, 4vw, 50px);
+      top: calc(var(--nav-h) + clamp(16px, 3vw, 40px));
       border: 1px solid var(--ink-20);
       pointer-events: none;
       z-index: 1;
@@ -1955,11 +1974,26 @@
 
     /* -------- Navbar scrolled state -------- */
     const navbar = document.getElementById('navbar');
+
+    /* ── FIX 4 ─────────────────────────────────────────────────────
+       Measure the real navbar height and write it to --nav-h on
+       <html> so the CSS calc() values in #hero and .hero-frame
+       are always accurate — on every screen size and orientation.
+    ──────────────────────────────────────────────────────────────── */
+    function setNavH() {
+      document.documentElement.style.setProperty('--nav-h', navbar.offsetHeight + 'px');
+    }
+    setNavH();                                           // run immediately on load
+    window.addEventListener('resize', setNavH, { passive: true }); // update on resize
+
     let scrollTicking = false;
     window.addEventListener('scroll', () => {
       if (!scrollTicking) {
         requestAnimationFrame(() => {
           navbar.classList.toggle('scrolled', window.scrollY > 40);
+          /* Re-measure after the scrolled padding transition settles.
+             The transition is 0.35 s; 400 ms is a safe post-settle check. */
+          setTimeout(setNavH, 400);
           scrollTicking = false;
         });
         scrollTicking = true;
