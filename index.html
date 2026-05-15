@@ -308,7 +308,7 @@
       align-items: center; justify-content: center;
       position: relative;
       text-align: center;
-      padding: calc(var(--nav-h) + 52px) 20px 80px;
+      padding: calc(var(--nav-h) + clamp(170px, 28vh, 340px)) 20px 80px;
       overflow: hidden;
     }
     .hero-bg {
@@ -337,6 +337,62 @@
     .hero-frame::after  { top: -7px; right: -7px; border-left: none; border-bottom: none; }
     .hero-frame > i::before { bottom: -7px; left: -7px; border-right: none; border-top: none; }
     .hero-frame > i::after  { bottom: -7px; right: -7px; border-left: none; border-top: none; }
+
+    /* ============================================================
+       HERO BANNER
+       ────────────────────────────────────────────────────────────
+       Sits flush inside the hero-frame so the frame's hairline
+       and wine corner brackets act as a passe-partout for the
+       photo. The bottom edge is feathered into the paper via a
+       CSS mask so there is no hard seam between photo and hero —
+       the image dissolves into the background.
+
+       DOM order matters: the banner is placed BEFORE .hero-frame
+       so the frame's border and corner brackets paint OVER the
+       banner's edges (intentional, mat-like effect).
+    ============================================================ */
+    .hero-banner {
+      position: absolute;
+      top:   calc(var(--nav-h) + clamp(10px, 0vw, 0px));   /* matches frame top */
+      left:  clamp(20px, 4vw, 50px);                          /* matches frame left */
+      right: clamp(20px, 4vw, 50px);                          /* matches frame right */
+      height: clamp(150px, 26vh, 300px);
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeIn 1.6s var(--ease-out) .25s forwards;
+      /* Feather the bottom into the paper so the photo dissolves
+         instead of cutting. Fully opaque for the top 55%, then
+         eased to transparent at the bottom edge. */
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 55%,
+        rgba(0,0,0,0.55) 82%,
+        transparent 100%
+      );
+              mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 55%,
+        rgba(0,0,0,0.55) 82%,
+        transparent 100%
+      );
+    }
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38%;
+      display: block;
+      /* Subtle tonal treatment so the photo lives in the same
+         muted, slightly warm world as the rest of the palette. */
+      filter: saturate(0.85) contrast(1.04) brightness(1.01);
+    }
+    @media (max-width: 600px) {
+      .hero-banner { height: clamp(120px, 20vh, 200px); }
+    }
 
     .hero-content { position: relative; z-index: 2; max-width: 900px; }
 
@@ -1465,6 +1521,13 @@
   =========================== -->
   <section id="hero" data-screen-label="01 Hero">
     <div class="hero-bg"></div>
+
+    <div class="hero-banner" aria-hidden="true">
+      <img data-img="Top_banner.jpeg"
+           alt=""
+           loading="eager" fetchpriority="high" />
+    </div>
+
     <div class="hero-frame"><i></i></div>
 
     <div class="hero-content">
