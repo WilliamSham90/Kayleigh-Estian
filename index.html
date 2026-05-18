@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#E4E4E4" />
+  <meta name="theme-color" content="#FFFFFF" />
   <title>Kayleigh & Estian — 21 August 2026</title>
   <meta name="description" content="Join Kayleigh & Estian on 21 August 2026 at DeHarte Venue, Pretoria, as we celebrate our wedding day." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-
-  
 
   <style>
     /* ============================================================
@@ -21,8 +19,10 @@
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     :root {
+      color-scheme: light;
       --paper:     #E4E4E4;
       --paper-2:   #ECECEC;
+      --card:      #FFFFFF;
       --ink:       #1B1B1B;
       --ink-2:     #1A1A1A;
       --mute:      #6B6B6B;
@@ -48,7 +48,6 @@
       --pad-x: clamp(20px, 5vw, 60px);
       --pad-y: clamp(72px, 10vw, 140px);
 
-     
       --nav-h: 60px;
     }
 
@@ -170,13 +169,13 @@
       padding: 18px clamp(20px, 4vw, 40px);
       display: flex; align-items: center; justify-content: space-between;
       gap: 16px;
-      background: linear-gradient(to bottom, rgba(228,228,228,0.85) 0%, rgba(228,228,228,0) 100%);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0) 100%);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       transition: background .35s ease, padding .35s ease, border-color .35s ease;
     }
     nav#navbar.scrolled {
-      background: rgba(228,228,228,0.96);
+      background: rgba(255,255,255,0.96);
       padding-top: 12px; padding-bottom: 12px;
       border-bottom: 1px solid var(--line);
     }
@@ -242,7 +241,7 @@
     ============================================================ */
     #menuOverlay {
       position: fixed; inset: 0;
-      background: var(--paper);
+      background: var(--card);
       z-index: 40;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
@@ -299,32 +298,44 @@
     #menuOverlay.open .menu-foot { opacity: 1; }
 
     /* ============================================================
-       HERO
+       HERO + INVITATION (combined into one passe-partout card)
+       ────────────────────────────────────────────────────────────
+       One framed "invitation card" that flows top to bottom:
+         1. Banner photo (top, feathered into paper)
+         2. Names + date + venue + countdown (centered)
+         3. Decorative divider
+         4. "You are cordially invited" — text + emblem (two-up)
+       The hero-frame's hairline + wine corner brackets wrap the
+       entire card so the photo, the names, and the invitation
+       all read as one printed announcement on white stock.
     ============================================================ */
     #hero {
       min-height: 100vh;
       min-height: 100svh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: block;
       position: relative;
       text-align: center;
-      padding: calc(var(--nav-h) + clamp(170px, 28vh, 340px)) 20px 80px;
+      padding: 0;
       overflow: hidden;
+      background: var(--card);
     }
     .hero-bg {
-      position: absolute; inset: -10%;
+      position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(133,51,49,0.06) 0%, transparent 65%),
-        var(--paper);
+        radial-gradient(ellipse 80% 60% at 50% 22%, rgba(133,51,49,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 55% at 50% 88%, rgba(133,51,49,0.04) 0%, transparent 65%),
+        var(--card);
       z-index: 0;
     }
+    /* The framed passe-partout — extends from below nav to bottom
+       of the hero so banner + names + invitation are all inside. */
     .hero-frame {
       position: absolute;
       inset: clamp(20px, 4vw, 50px);
       top: calc(var(--nav-h) + clamp(10px, 0vw, 0px));
       border: 1px solid var(--ink-20);
       pointer-events: none;
-      z-index: 1;
+      z-index: 3;
     }
     .hero-frame::before, .hero-frame::after,
     .hero-frame > i::before, .hero-frame > i::after {
@@ -338,33 +349,19 @@
     .hero-frame > i::before { bottom: -7px; left: -7px; border-right: none; border-top: none; }
     .hero-frame > i::after  { bottom: -7px; right: -7px; border-left: none; border-top: none; }
 
-    /* ============================================================
-       HERO BANNER
-       ────────────────────────────────────────────────────────────
-       Sits flush inside the hero-frame so the frame's hairline
-       and wine corner brackets act as a passe-partout for the
-       photo. The bottom edge is feathered into the paper via a
-       CSS mask so there is no hard seam between photo and hero —
-       the image dissolves into the background.
-
-       DOM order matters: the banner is placed BEFORE .hero-frame
-       so the frame's border and corner brackets paint OVER the
-       banner's edges (intentional, mat-like effect).
-    ============================================================ */
+    /* Banner photo — sits flush against the top of the frame,
+       feathers into the paper at its bottom edge. */
     .hero-banner {
       position: absolute;
-      top:   calc(var(--nav-h) + clamp(10px, 0vw, 0px));   /* matches frame top */
-      left:  clamp(20px, 4vw, 50px);                          /* matches frame left */
-      right: clamp(20px, 4vw, 50px);                          /* matches frame right */
-      height: clamp(150px, 26vh, 300px);
+      top:   calc(var(--nav-h) + clamp(10px, 0vw, 0px));
+      left:  clamp(20px, 4vw, 50px);
+      right: clamp(20px, 4vw, 50px);
+      height: clamp(220px, 40vh, 520px);
       overflow: hidden;
       z-index: 1;
       pointer-events: none;
       opacity: 0;
       animation: fadeIn 1.6s var(--ease-out) .25s forwards;
-      /* Feather the bottom into the paper so the photo dissolves
-         instead of cutting. Fully opaque for the top 55%, then
-         eased to transparent at the bottom edge. */
       -webkit-mask-image: linear-gradient(
         to bottom,
         #000 0%,
@@ -381,20 +378,35 @@
       );
     }
     .hero-banner img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       object-position: center 38%;
       display: block;
-      /* Subtle tonal treatment so the photo lives in the same
-         muted, slightly warm world as the rest of the palette. */
       filter: saturate(0.85) contrast(1.04) brightness(1.01);
     }
     @media (max-width: 600px) {
-      .hero-banner { height: clamp(120px, 20vh, 200px); }
+      .hero-banner { height: clamp(180px, 32vh, 200px); }
     }
 
-    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+    /* The card content sits above the frame's hairline (z-index 2,
+       frame is 3, but frame is just a border so this works visually).
+       padding-top clears the banner; padding-x respects the frame inset. */
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      margin: 0 auto;
+      padding:
+        calc(var(--nav-h) + clamp(240px, 42vh, 540px))
+        clamp(36px, 7vw, 80px)
+        clamp(60px, 8vw, 110px);
+    }
+
+    /* ── 1. NAMES BLOCK ───────────────────────────────────────── */
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
     .hero-eyebrow {
       font-family: var(--font-serif);
@@ -493,6 +505,118 @@
       line-height: 1;
     }
 
+    /* ── 2. DECORATIVE DIVIDER between the two halves ─────────── */
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: clamp(40px, 5vw, 70px) auto clamp(36px, 4.5vw, 60px);
+      max-width: 520px;
+      opacity: 0;
+      animation: fadeIn 1.2s var(--ease-out) 1.7s forwards;
+    }
+    .hero-divider .line {
+      flex: 1; height: 1px; background: var(--ink-20);
+      max-width: 180px;
+    }
+    .hero-divider .dot {
+      width: 7px; height: 7px;
+      background: var(--wine);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .hero-divider .ornament {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--wine);
+      white-space: nowrap;
+    }
+
+    /* ── 3. INVITATION BLOCK — text + emblem inside the frame ── */
+    .hero-invitation {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(28px, 4vw, 56px);
+      align-items: center;
+      text-align: left;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    @media (max-width: 820px) {
+      .hero-invitation { grid-template-columns: 1fr; gap: 28px; text-align: center; padding: 0px 10px;}
+    }
+
+    .hero-invitation .invitation-text .section-head { text-align: left; margin-bottom: 0; }
+    @media (max-width: 820px) {
+      .hero-invitation .invitation-text .section-head { text-align: center; }
+      .hero-names {
+      font-size: clamp(2.5rem, 11vw, 8.5rem);}
+    }
+
+    .hero-invitation .section-eyebrow {
+      font-family: var(--font-serif);
+      font-size: 0.72rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .hero-invitation .section-title {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+      line-height: 1.05;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+    .hero-invitation .section-title em {
+      font-style: normal;
+      color: var(--wine);
+    }
+    .hero-invitation .section-rule {
+      width: 60px; height: 1px;
+      background: var(--wine);
+      margin: 22px 0 0;
+    }
+    @media (max-width: 820px) {
+      .hero-invitation .section-rule { margin-left: auto; margin-right: auto; }
+    }
+    .hero-invitation .invitation-body {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--ink-70);
+      max-width: 44ch;
+      margin-top: 24px;
+    }
+    @media (max-width: 820px) {
+      .hero-invitation .invitation-body { margin-left: auto; margin-right: auto; }
+    }
+
+    .hero-invitation .invitation-image {
+      position: relative;
+      aspect-ratio: 1/1;
+      max-width: 360px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-invitation .invitation-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
     /* ============================================================
        SHARED SECTION
     ============================================================ */
@@ -541,67 +665,6 @@
       line-height: 1.75;
       max-width: 540px;
       margin: 22px auto 0;
-    }
-
-    /* ============================================================
-       INVITATION  (white section)
-    ============================================================ */
-    #invitation {
-      padding: var(--pad-y) 0;
-      background: #FFFFFF;
-      color: var(--ink);
-      position: relative;
-      overflow: hidden;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-    #invitation::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 30% 40%, rgba(133,51,49,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .invitation-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 var(--pad-x);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    @media (max-width: 820px) {
-      .invitation-inner { grid-template-columns: 1fr; gap: 36px; }
-    }
-    .invitation-text .section-eyebrow { color: var(--wine); }
-    .invitation-text .section-title { color: var(--ink); }
-    .invitation-text .section-title em { color: var(--wine); }
-    .invitation-text .section-rule { background: var(--wine); margin-left: 0; }
-    .invitation-text .section-head { text-align: left; }
-    .invitation-body {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--ink-70);
-      max-width: 44ch;
-      margin-top: 24px;
-    }
-    .invitation-image {
-      position: relative;
-      aspect-ratio: 1/1;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .invitation-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
     }
 
     /* ============================================================
@@ -655,7 +718,7 @@
       font-family: var(--font-serif);
       font-style: italic;
       font-size: 0.95rem;
-      color: var(--ink);
+      color: var(--paper);
       letter-spacing: 0.04em;
     }
     .gal-caption::before {
@@ -1328,7 +1391,7 @@
       margin-top: 24px;
     }
     /* ============================================================
-       GIFTS (dark variant — splits it from the gallery below)
+       GIFTS (dark variant)
     ============================================================ */
     #gifts {
       background: var(--ink-2);
@@ -1458,6 +1521,8 @@
       .count-sep { display: none; }
       .count-item { min-width: 60px; padding: 0 4px; }
       .hero-flourish .line { width: 50px; }
+      .hero-inner { padding-left: clamp(22px, 6vw, 36px); padding-right: clamp(22px, 6vw, 36px); padding-top: calc(var(--nav-h) + clamp(150px, 42vh, 250px));}
+      
     }
     @media (max-width: 380px) {
       .countdown { gap: 6px; }
@@ -1517,9 +1582,9 @@
   </div>
 
   <!-- ===========================
-       HERO
+       HERO + INVITATION (one card)
   =========================== -->
-  <section id="hero" data-screen-label="01 Hero">
+  <section id="hero" data-screen-label="01 Hero & Invitation">
     <div class="hero-bg"></div>
 
     <div class="hero-banner" aria-hidden="true">
@@ -1530,72 +1595,78 @@
 
     <div class="hero-frame"><i></i></div>
 
-    <div class="hero-content">
-      <p class="hero-eyebrow">For the wedding of</p>
+    <div class="hero-inner">
 
-      <h1 class="hero-names">Kayleigh<span class="amp">&amp;</span>Estian</h1>
+      <!-- ── Top: names + date + countdown ─────────────────── -->
+      <div class="hero-content">
+        <p class="hero-eyebrow">For the wedding of</p>
 
-      <div class="hero-flourish">
-        <span class="line"></span>
-        <span class="dot"></span>
-        <span class="line"></span>
-      </div>
+        <h1 class="hero-names">Kayleigh<span class="amp">&amp;</span>Estian</h1>
 
-      <p class="hero-date-block">
-        21<span class="sep">|</span>August<span class="sep">|</span>2026
-      </p>
-      <p class="hero-venue">DeHarte Venue · Pretoria</p>
-
-      <div class="countdown" id="countdown" aria-label="Countdown to the wedding">
-        <div class="count-item">
-          <span class="count-num" id="cDays">000</span>
-          <span class="count-label">Days</span>
+        <div class="hero-flourish">
+          <span class="line"></span>
+          <span class="dot"></span>
+          <span class="line"></span>
         </div>
-        <span class="count-sep">·</span>
-        <div class="count-item">
-          <span class="count-num" id="cHours">00</span>
-          <span class="count-label">Hours</span>
-        </div>
-        <span class="count-sep">·</span>
-        <div class="count-item">
-          <span class="count-num" id="cMins">00</span>
-          <span class="count-label">Minutes</span>
-        </div>
-        <span class="count-sep">·</span>
-        <div class="count-item">
-          <span class="count-num" id="cSecs">00</span>
-          <span class="count-label">Seconds</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ===========================
-       INVITATION
-  =========================== -->
-  <section id="invitation" data-screen-label="02 Invitation">
-    <div class="invitation-inner">
-      <div class="invitation-text reveal">
-        <header class="section-head">
-          <span class="section-eyebrow">The invitation</span>
-          <h2 class="section-title">You are <em>cordially</em> invited</h2>
-          <div class="section-rule"></div>
-        </header>
-        <p class="invitation-body">
-          Together with our families, we ask you to join us as we exchange vows and begin our life together — a single evening, dressed in black, surrounded by everyone we love.
+        <p class="hero-date-block">
+          21<span class="sep">|</span>August<span class="sep">|</span>2026
         </p>
+        <p class="hero-venue">DeHarte Venue · Pretoria</p>
+
+        <div class="countdown" id="countdown" aria-label="Countdown to the wedding">
+          <div class="count-item">
+            <span class="count-num" id="cDays">000</span>
+            <span class="count-label">Days</span>
+          </div>
+          <span class="count-sep">·</span>
+          <div class="count-item">
+            <span class="count-num" id="cHours">00</span>
+            <span class="count-label">Hours</span>
+          </div>
+          <span class="count-sep">·</span>
+          <div class="count-item">
+            <span class="count-num" id="cMins">00</span>
+            <span class="count-label">Minutes</span>
+          </div>
+          <span class="count-sep">·</span>
+          <div class="count-item">
+            <span class="count-num" id="cSecs">00</span>
+            <span class="count-label">Seconds</span>
+          </div>
+        </div>
       </div>
-      <div class="invitation-image reveal delay-1">
-        <!-- data-img: filename relative to IMAGE_BASE — resolved by JS below -->
-        <img data-img="Hands of love.png" alt="Two swallows holding hearts above clasped hands — wedding emblem" />
+
+      <!-- ── Divider between halves ────────────────────────── -->
+      <div class="hero-divider" aria-hidden="true">
+        <span class="line"></span>
+        <span class="ornament">The Invitation</span>
+        <span class="line"></span>
       </div>
+
+      <!-- ── Bottom: "You are cordially invited" + emblem ──── -->
+      <div class="hero-invitation">
+        <div class="invitation-text reveal">
+          <header class="section-head">
+            <h2 class="section-title">You are <em>cordially</em> invited</h2>
+            <div class="section-rule"></div>
+          </header>
+          <p class="invitation-body">
+            Together with our families, we ask you to join us as we exchange vows and begin our life together — a single evening, dressed in black, surrounded by everyone we love.
+          </p>
+        </div>
+        <div class="invitation-image reveal delay-1">
+          <img data-img="Hands of love.png" alt="Two swallows holding hearts above clasped hands — wedding emblem" />
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ===========================
-       RSVP  (moved up — sits directly after the invitation)
+       RSVP
   =========================== -->
-  <section id="rsvp" data-screen-label="03 RSVP">
+  <section id="rsvp" data-screen-label="02 RSVP">
     <div class="rsvp-inner">
       <header class="section-head reveal">
         <span class="section-eyebrow">Reserve your seat</span>
@@ -1627,7 +1698,7 @@
   <!-- ===========================
        DETAILS
   =========================== -->
-  <section id="details" data-screen-label="04 Details">
+  <section id="details" data-screen-label="03 Details">
     <div class="details-inner">
       <header class="section-head reveal">
         <span class="section-eyebrow">You are warmly invited</span>
@@ -1713,7 +1784,7 @@
   <!-- ===========================
        GETTING THERE
   =========================== -->
-  <section class="info-section" id="directions" data-screen-label="05 Directions">
+  <section class="info-section" id="directions" data-screen-label="04 Directions">
     <div class="info-inner">
       <header class="section-head reveal">
         <span class="section-eyebrow">Getting there</span>
@@ -1731,7 +1802,7 @@
             <span class="ra-label">Route advisory — please read</span>
             <p class="ra-text">
               For the smoothest journey, take the route through
-              <strong>Rietfontein</strong> &mdash; <span class="strike-route">do not drive past Soshanguve.</span>
+              <strong>Rietfontein</strong> &mdash; <span ><strong>do not drive past Soshanguve.</strong></span>
             </p>
           </div>
         </div>
@@ -1768,7 +1839,7 @@
   <!-- ===========================
        ACCOMMODATION
   =========================== -->
-  <section class="info-section info-section--alt" id="accommodation" data-screen-label="06 Accommodation">
+  <section class="info-section info-section--alt" id="accommodation" data-screen-label="05 Accommodation">
     <div class="info-inner">
       <header class="section-head reveal">
         <span class="section-eyebrow">Accommodation</span>
@@ -1811,7 +1882,7 @@
   <!-- ===========================
        GIFTS
   =========================== -->
-  <section class="info-section" id="gifts" data-screen-label="07 Gifts">
+  <section class="info-section" id="gifts" data-screen-label="06 Gifts">
     <div class="info-inner" style="max-width:640px;">
       <header class="section-head reveal">
         <span class="section-eyebrow">Gifts</span>
@@ -1857,7 +1928,7 @@
   <!-- ===========================
        GALLERY  
   =========================== -->
-  <section id="gallery" data-screen-label="08 Gallery">
+  <section id="gallery" data-screen-label="07 Gallery">
     <div class="container">
       <header class="section-head reveal">
         <span class="section-eyebrow">Our favourite moments</span>
@@ -1867,53 +1938,53 @@
 
       <div class="gallery-grid" id="galleryGrid">
 
-        <a data-img="Gallery-image-1.jpeg" class="gal-item reveal" data-caption="Always and forever">
+        <a data-img="Gallery-image-1.jpeg" class="gal-item reveal" data-caption="Always and Forever">
           <img data-img="Gallery-image-1.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Always and forever</span></div>
+          <div class="gal-overlay"><span class="gal-caption">Always and Forever</span></div>
         </a>
-        <a data-img="Gallery-image-2.jpeg" class="gal-item reveal delay-1" data-caption="Golden hour">
+        <a data-img="Gallery-image-2.jpeg" class="gal-item reveal delay-1" data-caption="A night in Paris">
           <img data-img="Gallery-image-2.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Golden hour</span></div>
+          <div class="gal-overlay"><span class="gal-caption">A night in Paris</span></div>
         </a>
-        <a data-img="Gallery-image-3.jpeg" class="gal-item reveal delay-2" data-caption="Just us">
+        <a data-img="Gallery-image-3.jpeg" class="gal-item reveal delay-2" data-caption="She said yes">
           <img data-img="Gallery-image-3.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Just us</span></div>
+          <div class="gal-overlay"><span class="gal-caption">She said yes</span></div>
         </a>
-        <a data-img="Gallery-image-4.jpeg" class="gal-item reveal delay-1" data-caption="Uncontrollable laughter">
+        <a data-img="Gallery-image-4.jpeg" class="gal-item reveal delay-1" data-caption="The wall of love">
           <img data-img="Gallery-image-4.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Uncontrollable laughter</span></div>
+          <div class="gal-overlay"><span class="gal-caption">The wall of love</span></div>
         </a>
-        <a data-img="Gallery-image-5.jpeg" class="gal-item reveal delay-2" data-caption="The night everything changed">
+        <a data-img="Gallery-image-5.jpeg" class="gal-item reveal delay-2" data-caption="Just us">
           <img data-img="Gallery-image-5.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">The night everything changed</span></div>
+          <div class="gal-overlay"><span class="gal-caption">Just us</span></div>
         </a>
         <a data-img="Gallery-image-6.jpeg" class="gal-item reveal delay-3" data-caption="Sunday walks">
           <img data-img="Gallery-image-6.jpeg" alt="Kayleigh and Estian" loading="lazy" />
           <div class="gal-overlay"><span class="gal-caption">Sunday walks</span></div>
         </a>
-        <a data-img="Gallery-image-7.jpeg" class="gal-item reveal delay-1" data-caption="Our favourite place">
+        <a data-img="Gallery-image-7.jpeg" class="gal-item reveal delay-1" data-caption="The quiet moments together">
           <img data-img="Gallery-image-7.jpeg" alt="Kayleigh and Estian" loading="lazy" />
+          <div class="gal-overlay"><span class="gal-caption">The quiet moments together</span></div>
+        </a>
+        <a data-img="Gallery-image-8.jpeg" class="gal-item reveal delay-3" data-caption="Our favourite place">
+          <img data-img="Gallery-image-8.jpeg" alt="Kayleigh and Estian" loading="lazy" />
           <div class="gal-overlay"><span class="gal-caption">Our favourite place</span></div>
         </a>
-        <a data-img="Gallery-image-8.jpeg" class="gal-item reveal delay-3" data-caption="She said yes">
-          <img data-img="Gallery-image-8.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">She said yes</span></div>
-        </a>
-        <a data-img="Gallery-image-9.jpeg" class="gal-item reveal delay-2" data-caption="Under the stars">
+        <a data-img="Gallery-image-9.jpeg" class="gal-item reveal delay-2" data-caption="Weekend adventures">
           <img data-img="Gallery-image-9.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Under the stars</span></div>
+          <div class="gal-overlay"><span class="gal-caption">Weekend adventures</span></div>
         </a>
         <a data-img="Gallery-image-10.jpeg" class="gal-item reveal delay-4" data-caption="Always">
           <img data-img="Gallery-image-10.jpeg" alt="Kayleigh and Estian" loading="lazy" />
           <div class="gal-overlay"><span class="gal-caption">Always</span></div>
         </a>
-        <a data-img="Gallery-image-11.jpeg" class="gal-item reveal delay-1" data-caption="First shoot together">
+        <a data-img="Gallery-image-11.jpeg" class="gal-item reveal delay-1" data-caption="Our favourite shoot together">
           <img data-img="Gallery-image-11.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">First shoot together</span></div>
+          <div class="gal-overlay"><span class="gal-caption">Our favourite shoot together</span></div>
         </a>
-        <a data-img="Gallery-image-12.jpeg" class="gal-item reveal delay-2" data-caption="Backyard sessions">
+        <a data-img="Gallery-image-12.jpeg" class="gal-item reveal delay-2" data-caption="A million kisses for you">
           <img data-img="Gallery-image-12.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">Backyard sessions</span></div>
+          <div class="gal-overlay"><span class="gal-caption">A million kisses for you</span></div>
         </a>
         <a data-img="Gallery-image-13.jpeg" class="gal-item reveal delay-3" data-caption="Together always">
           <img data-img="Gallery-image-13.jpeg" alt="Kayleigh and Estian" loading="lazy" />
@@ -1923,9 +1994,9 @@
           <img data-img="Gallery-image-14.jpeg" alt="Kayleigh and Estian" loading="lazy" />
           <div class="gal-overlay"><span class="gal-caption">Somewhere in time</span></div>
         </a>
-        <a data-img="Gallery-image-15.jpeg" class="gal-item reveal delay-2" data-caption="The quiet moments">
+        <a data-img="Gallery-image-15.jpeg" class="gal-item reveal delay-2" data-caption="Foreshadowing our future">
           <img data-img="Gallery-image-15.jpeg" alt="Kayleigh and Estian" loading="lazy" />
-          <div class="gal-overlay"><span class="gal-caption">The quiet moments</span></div>
+          <div class="gal-overlay"><span class="gal-caption">Foreshadowing our future</span></div>
         </a>
         <a data-img="Gallery-image-16.jpeg" class="gal-item reveal delay-3" data-caption="Just the two of us">
           <img data-img="Gallery-image-16.jpeg" alt="Kayleigh and Estian" loading="lazy" />
@@ -1974,9 +2045,10 @@
   </div>
 
   <!-- ===========================
-       SCRIPTS
+       SCRIPTS (unchanged)
   =========================== -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
 
     const IMAGE_BASE = 'https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/';
 
