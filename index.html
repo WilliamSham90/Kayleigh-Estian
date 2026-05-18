@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#FFFFFF" />
+  <meta name="color-scheme" content="only light">
   <title>Kayleigh & Estian — 21 August 2026</title>
   <meta name="description" content="Join Kayleigh & Estian on 21 August 2026 at DeHarte Venue, Pretoria, as we celebrate our wedding day." />
 
@@ -19,24 +20,24 @@
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     :root {
-      color-scheme: light;
-      --paper:     #E4E4E4;
-      --paper-2:   #ECECEC;
-      --card:      #FFFFFF;
-      --ink:       #1B1B1B;
-      --ink-2:     #1A1A1A;
-      --mute:      #6B6B6B;
-      --wine:      #853331;
+      color-scheme: only light;
+      --paper:     #E4E4E4 !important;
+      --paper-2:   #ECECEC !important;
+      --card:      #FFFFFF !important;
+      --ink:       #1B1B1B !important;
+      --ink-2:     #1A1A1A !important;
+      --mute:      #6B6B6B !important;
+      --wine:      #853331 !important;
 
-      --wine-soft: rgba(133, 51, 49, 0.08);
-      --wine-line: rgba(133, 51, 49, 0.28);
-      --ink-70:    rgba(27, 27, 27, 0.70);
-      --ink-55:    rgba(27, 27, 27, 0.55);
-      --ink-40:    rgba(27, 27, 27, 0.40);
-      --ink-20:    rgba(27, 27, 27, 0.20);
-      --ink-10:    rgba(27, 27, 27, 0.10);
-      --ink-06:    rgba(27, 27, 27, 0.05);
-      --line:      rgba(27, 27, 27, 0.14);
+      --wine-soft: rgba(133, 51, 49, 0.08) !important;
+      --wine-line: rgba(133, 51, 49, 0.28) !important;
+      --ink-70:    rgba(27, 27, 27, 0.70) !important;
+      --ink-55:    rgba(27, 27, 27, 0.55) !important;
+      --ink-40:    rgba(27, 27, 27, 0.40) !important;
+      --ink-20:    rgba(27, 27, 27, 0.20) !important;
+      --ink-10:    rgba(27, 27, 27, 0.10) !important;
+      --ink-06:    rgba(27, 27, 27, 0.05) !important;
+      --line:      rgba(27, 27, 27, 0.14) !important;
 
       --font-serif:  'Cormorant Garamond', 'Times New Roman', Georgia, serif;
       --font-script: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -1283,7 +1284,7 @@
 
     .accom-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 22px;
     }
     .accom-card {
@@ -1852,24 +1853,37 @@
       <div class="accom-grid">
         <div class="accom-card reveal">
           <div class="accom-photo">
+            <img data-img="vsghotel.PNG"
+                 alt="VSG Hotel" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+          <div class="accom-body">
+            <span class="accom-num">Option 01</span>
+            <p class="accom-name">VSG Hotel</p>
+            <p class="accom-desc">A welcoming hotel close to the venue — a lovely option for a comfortable overnight stay.</p>
+            <a href="https://vsghotel.co.za" target="_blank" rel="noopener noreferrer" class="btn-outline">Visit Website →</a>
+          </div>
+        </div>
+
+        <div class="accom-card reveal delay-1">
+          <div class="accom-photo">
             <img data-img="siba_image.png"
                  alt="Siba's Lifestyle Lodge" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
           <div class="accom-body">
-            <span class="accom-num">Option 01</span>
+            <span class="accom-num">Option 02</span>
             <p class="accom-name">Siba's Lifestyle Lodge</p>
             <p class="accom-desc">A peaceful lifestyle lodge close to the venue — a lovely option for a comfortable overnight stay.</p>
             <a href="http://sibaslifestylelodge.co.za/" target="_blank" rel="noopener" class="btn-outline">Visit Website →</a>
           </div>
         </div>
 
-        <div class="accom-card reveal delay-1">
+        <div class="accom-card reveal delay-2">
           <div class="accom-photo">
             <img data-img="Booking_image.PNG"
                  alt="Nearby Guesthouse" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
           <div class="accom-body">
-            <span class="accom-num">Option 02</span>
+            <span class="accom-num">Option 03</span>
             <p class="accom-name">Nearby Guesthouse</p>
             <p class="accom-desc">A charming option in the area — browse and book directly for the most up-to-date availability.</p>
             <a href="https://www.booking.com/Share-Bi3G9f" target="_blank" rel="noopener" class="btn-outline">View on Booking.com →</a>
@@ -1920,7 +1934,7 @@
         </div>
       </div>
       <p class="gifts-footnote reveal delay-2">
-        Queries: <a href="/cdn-cgi/l/email-protection#cca7adb5a9bfb8a5a2ff8caba1ada5a0e2afa3a1"><span class="__cf_email__" data-cfemail="ee858f978b9d9a8780ddae89838f8782c08d8183">[email&#160;protected]</span></a>
+        Queries: <a href="mailto:kayestin3@gmail.com">kayestin3@gmail.com</a>
       </p>
     </div>
   </section>
@@ -2047,7 +2061,7 @@
   <!-- ===========================
        SCRIPTS (unchanged)
   =========================== -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
 
     const IMAGE_BASE = 'https://raw.githubusercontent.com/WilliamSham90/Kayleigh-Estian/main/Images/';
